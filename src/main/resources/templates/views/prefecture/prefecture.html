@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/views/common/head::commonHead01(~{::title}, ~{::link}, ~{::script})">
+<meta charset="UTF-8">
+<title th:text="#{prefecture}"></title>
+<link rel="stylesheet" th:href="@{/css/prefecture/prefecture.css}">
+<script type="text/javascript" th:src="@{/js/prefecture/prefecture.js}"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+	<!-- ■検索条件■ -->
+	<div class="row">
+		<div class="col" id="searchArea">
+			<th:block th:replace="/views/prefecture/parts/prefectureSearchConditions :: searchConditions01()"/>
+		</div>
+	</div>
+	<!-- ■境界線■ -->
+	<div class="row mb-2">
+		<div class="col">
+			<hr class="hr-01" noshade>
+		</div>
+	</div>
+	<!-- ■エラーメッセージ■ -->
+	<div th:if="${#fields.hasErrors('${searchForm}')}"></div>
+	<!-- ■明細■ -->
+	<div class="row">
+		<div class="col">
+			<table border="1">
+				<tr>
+					<th><span th:text="#{prefecture} + #{nm}" /></th>
+					<th><span th:text="#{prefecture} + #{nm} + '(' + #{hiragana} + ')'" /></th>
+					<th><span th:text="#{prefecture} + #{nm} + '(' + #{katakana} + ')'" /></th>
+					<th><span th:text="#{prefecture} + #{nm} + '(' + #{roma} + #{character} + ')'" /></th>
+				</tr>
+				<tr th:each="data : ${listForm.dataList}">
+					<td th:text="*{data.name}"></td>
+					<td th:text="*{data.nameHira}"></td>
+					<td th:text="*{data.nameKana}"></td>
+					<td th:text="*{data.nameRoma}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
