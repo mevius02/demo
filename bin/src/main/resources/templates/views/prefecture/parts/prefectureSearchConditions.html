@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<th:block th:fragment="searchConditions01()">
+	<form method="get" id="searchForm" th:object="${searchForm}" th:action="@{/prefecture/search}" autocomplete="off">
+		<div class="row">
+			<!-- ■都道府県名 -->
+			<div class="form-group col-lg-2 col-md-3 col-sm-4 col-xs-6">
+				<div class="row"><div class="col"><span th:text="#{prefecture} + #{nm}" for="name"/></div></div>
+				<div class="row"><div class="col"><input type="text" th:field="*{name}" maxlength="12" class="form-control"></div></div>
+			</div>
+			<!-- ■都道府県名(ひらがな) -->
+			<div class="form-group col-lg-2 col-md-3 col-sm-4 col-xs-6">
+				<div class="row"><div class="col"><span th:text="#{prefecture} + #{nm} + '(' + #{hiragana} + ')'" for="name"/></div></div>
+				<div class="row"><div class="col"><input type="text" th:field="*{nameHira}" maxlength="12" class="form-control"></div></div>
+			</div>
+			<!-- ■都道府県名(カタカナ) -->
+			<div class="form-group col-lg-2 col-md-3 col-sm-4 col-xs-6">
+				<div class="row"><div class="col"><span th:text="#{prefecture} + #{nm} + '(' + #{katakana} + ')'" for="name"/></div></div>
+				<div class="row"><div class="col"><input type="text" th:field="*{nameKana}" maxlength="12" class="form-control"></div></div>
+			</div>
+			<!-- ■都道府県名(ローマ字) -->
+			<div class="form-group col-lg-2 col-md-3 col-sm-4 col-xs-6">
+				<div class="row"><div class="col"><span th:text="#{prefecture} + #{nm} + '(' + #{roma} + #{character} + ')'" for="name"/></div></div>
+				<div class="row"><div class="col"><input type="text" th:field="*{nameRoma}" maxlength="12" class="form-control"></div></div>
+			</div>
+		</div>
+		<!-- ■エラーメッセージ■ -->
+		<div class="row mb-2">
+			<div class="col">
+				<div class="alert alert-danger" th:if="${#fields.hasErrors()}">
+					<span th:each="error : ${#fields.errors()}" th:text="${error}"/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4 text-left">
+				<button type="button" id="btnSearchConditions" th:text="#{conditions} + #{clear}" onclick="clearFormValue('searchForm')" class="btn btn-primary btn-rounded-top"/>
+			</div>
+			<div class="col-sm-4 text-center">
+				<button type="submit" id="btnSearch" th:text="#{search}" class="btn btn-primary btn-rounded-top"/>
+			</div>
+			<div class="col-sm-4 text-right">
+				<button type="button" id="btnReloadSearchArea" th:text="#{search} + #{conditions} + '[' + #{update} + ']'" th:data-url="@{/prefecture/reloadSearchArea}" class="btn btn-primary btn-rounded-top"/>
+			</div>
+		</div>
+	</form>
+</th:block>

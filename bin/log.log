@@ -1,0 +1,133 @@
+2020-02-17 18:20:48.394  INFO 15228 --- [main] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-A6FH77S with PID 15228 (C:\eclipse\pleiades\workspace2\demo\target\classes started by onish in C:\eclipse\pleiades\workspace2\demo)
+2020-02-17 18:20:48.394  INFO 15228 --- [main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
+2020-02-17 18:20:49.275  INFO 15228 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-02-17 18:20:49.276  INFO 15228 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2020-02-17 18:20:49.343  INFO 15228 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-02-17 18:20:49.348 DEBUG 15228 --- [main] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-02-17 18:20:49.348  INFO 15228 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 926 ms
+2020-02-17 18:20:49.728 DEBUG 15228 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-02-17 18:20:49.775 DEBUG 15228 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
+2020-02-17 18:20:49.790 DEBUG 15228 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-02-17 18:20:49.790 DEBUG 15228 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-02-17 18:20:49.999  INFO 15228 --- [main] com.example.demo.DemoApplication         : Started DemoApplication in 1.884 seconds (JVM running for 2.677)
+2020-02-17 18:20:56.369  INFO 15228 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-02-17 18:20:56.369  INFO 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-02-17 18:20:56.369 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-02-17 18:20:56.373 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-02-17 18:20:56.374  INFO 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-02-17 18:20:56.382 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/", parameters={}
+2020-02-17 18:20:56.388 DEBUG 15228 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demo.contoller.IndexController#init(Model)
+2020-02-17 18:20:56.404 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8]
+2020-02-17 18:20:56.708 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-02-17 18:20:56.749 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/css/common/bootstrap.min.css", parameters={}
+2020-02-17 18:20:56.751 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/css/common/common.css", parameters={}
+2020-02-17 18:20:56.757 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.757 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.759 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/css/prefecture/prefecture.css", parameters={}
+2020-02-17 18:20:56.761 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.762 DEBUG 15228 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/js/common/bootstrap.min.js", parameters={}
+2020-02-17 18:20:56.761 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/js/common/jquery-3.4.1.min.js", parameters={}
+2020-02-17 18:20:56.762 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/js/common/common.js", parameters={}
+2020-02-17 18:20:56.763 DEBUG 15228 --- [http-nio-8080-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.763 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.763 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.764 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:56.765 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:56.765 DEBUG 15228 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2020-02-17 18:20:56.765 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2020-02-17 18:20:56.765 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2020-02-17 18:20:56.767 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2020-02-17 18:20:56.767 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2020-02-17 18:20:56.769 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/js/prefecture/prefecture.js", parameters={}
+2020-02-17 18:20:56.770 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.772 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:56.773 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:56.778 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:56.778 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:56.779 DEBUG 15228 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:56.779 DEBUG 15228 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:56.800 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.1', given [text/css, */*;q=0.1] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:56.800 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:56.801 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:56 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:56.801 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:56 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:56.843 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:56.843 DEBUG 15228 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:56.862 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/js/prefecture/prefecture.js", parameters={}
+2020-02-17 18:20:56.863 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:56.864 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:56.864 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:56.865 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:56.866 DEBUG 15228 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:56.866 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:56.867 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:56 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:56.867 DEBUG 15228 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:58.208 DEBUG 15228 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/prefecture", parameters={}
+2020-02-17 18:20:58.210 DEBUG 15228 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demo.contoller.PrefectureController#init(Model)
+2020-02-17 18:20:58.236 DEBUG 15228 --- [http-nio-8080-exec-10] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8]
+2020-02-17 18:20:58.283 DEBUG 15228 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-02-17 18:20:58.305 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/css/prefecture/prefecture.css", parameters={}
+2020-02-17 18:20:58.305 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/js/prefecture/prefecture.js", parameters={}
+2020-02-17 18:20:58.306 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:58.306 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:58.307 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:58.307 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:58.307 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:58.307 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:58.307 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:58.307 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:58.308 DEBUG 15228 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:58.308 DEBUG 15228 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:58.308 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:58.309 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.1', given [text/css, */*;q=0.1] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:58.309 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:58 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:58.309 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:58 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:58.310 DEBUG 15228 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:58.310 DEBUG 15228 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:58.354 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/js/prefecture/prefecture.js", parameters={}
+2020-02-17 18:20:58.354 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:58.355 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:58.355 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:58.355 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:58.356 DEBUG 15228 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:58.356 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:58.356 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:58 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:58.357 DEBUG 15228 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:59.548 DEBUG 15228 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/prefecture/search?searchForm.name=", parameters={masked}
+2020-02-17 18:20:59.549 DEBUG 15228 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demo.contoller.PrefectureController#search(PrefectureSessionForm, Model)
+2020-02-17 18:20:59.555  INFO 15228 --- [http-nio-8080-exec-6] c.e.demo.contoller.PrefectureController  : [検索]マスタ都道府県
+2020-02-17 18:20:59.602  INFO 15228 --- [http-nio-8080-exec-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-02-17 18:20:59.700  INFO 15228 --- [http-nio-8080-exec-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-02-17 18:20:59.707 DEBUG 15228 --- [http-nio-8080-exec-6] c.e.d.m.m.M.selectByExample              : ==>  Preparing: select name, record_id, name_hira, name_kana, name_roma from public.m_prefecture 
+2020-02-17 18:20:59.716 DEBUG 15228 --- [http-nio-8080-exec-6] c.e.d.m.m.M.selectByExample              : ==> Parameters: 
+2020-02-17 18:20:59.743 DEBUG 15228 --- [http-nio-8080-exec-6] c.e.d.m.m.M.selectByExample              : <==      Total: 47
+2020-02-17 18:20:59.749 DEBUG 15228 --- [http-nio-8080-exec-6] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8]
+2020-02-17 18:20:59.765 DEBUG 15228 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-02-17 18:20:59.785 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/css/prefecture/prefecture.css", parameters={}
+2020-02-17 18:20:59.787 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:59.787 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/js/prefecture/prefecture.js", parameters={}
+2020-02-17 18:20:59.788 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:59.788 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:59.788 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:59.789 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:59.789 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:59.789 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:59.789 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:59.790 DEBUG 15228 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:59.790 DEBUG 15228 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:59.790 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.1', given [text/css, */*;q=0.1] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:59.790 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:59.790 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:59 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:59.790 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:59 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:59.791 DEBUG 15228 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:59.791 DEBUG 15228 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:20:59.839 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/js/prefecture/prefecture.js", parameters={}
+2020-02-17 18:20:59.839 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-02-17 18:20:59.840 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-02-17 18:20:59.840 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-02-17 18:20:59.841 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-02-17 18:20:59.841 DEBUG 15228 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-02-17 18:20:59.842 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-02-17 18:20:59.842 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 17 18:20:59 JST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-02-17 18:20:59.843 DEBUG 15228 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-02-17 18:21:04.205  INFO 15228 --- [RMI TCP Connection(3)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-02-17 18:21:04.213  INFO 15228 --- [RMI TCP Connection(3)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

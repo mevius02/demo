@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<head th:fragment="commonHead01(title, link, script)">
+	<title th:replace="${title}"></title>
+
+	<!-- ■CSS -->
+	<link rel="stylesheet" th:href="@{/css/common/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<th:block th:replace="${link}"></th:block>
+
+	<!-- ■JavaScript -->
+	<script type="text/javascript" th:src="@{/js/common/jquery-3.4.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common/common.js}"></script>
+	<th:block th:replace="${script}"></th:block>
+</head>

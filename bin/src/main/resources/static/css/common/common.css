@@ -1,0 +1,33 @@
+/* フォントのインポート */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+/* フォント */
+body, button {
+	font-size: 15px;
+	font-weight: lighter;
+	font-family: 'Lato', 'Noto Sans JP', '游ゴシック Medium', '游ゴシック体',
+		'Yu Gothic Medium', YuGothic, 'ヒラギノ角ゴ ProN',
+		'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic',
+		sans-serif;
+}
+/* 境界線 */
+.hr-01 {
+	height: 2px;
+	padding: 0;
+	margin: 0;
+}
+/* [ボタン]角丸加工 */
+.btn-rounded-top {
+	border-radius: .25rem .25rem 0 0;
+}
+
+.btn-rounded-right {
+	border-radius: 0 .25rem .25rem 0;
+}
+
+.btn-rounded-bottom {
+	border-radius: 0 0 .25rem .25rem;
+}
+
+.btn-rounded-left {
+	border-radius: .25rem 0 0 .25rem;
+}

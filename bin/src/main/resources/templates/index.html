@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/views/common/head::commonHead01(~{::title}, ~{::link}, ~{::script})">
+<meta charset="UTF-8">
+<title></title>
+<link>
+<script></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<button type="button" th:onclick="location.href='./prefecture'" class="btn btn-primary">
+				<span th:text="#{prefecture}"></span>
+			</button>
+		</div>
+	</div>
+</body>
+</html>
