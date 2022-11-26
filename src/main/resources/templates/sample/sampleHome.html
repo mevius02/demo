@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <head th:replace="sample/common/sampleHead :: head(title = 'SAMPLE-HOME', scripts = ~{::script}, links = ~{::link})">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sample.css}" />
+    <script type="text/javascript" th:src="@{/js/sample.js}"></script>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header th:replace="sample/common/sampleHeader :: header-01" />
+    <main class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <!-- タイトル -->
+          <h1>SAMPLE-HOME</h1>
+          <form>
+            <div class="form-floating">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+              <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div class="checkbox mb-3">
+              <label>
+                <input type="checkbox" value="remember-me"> Remember me
+              </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+          </form>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer th:replace="sample/common/sampleFooter :: footer-01" />
+  </body>
+
+</html>

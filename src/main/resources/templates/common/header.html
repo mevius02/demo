@@ -1,0 +1,50 @@
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<!-- 01 -->
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<header th:fragment="header-01" class="navbar navbar-expand-md p-0 sticky-top">
+  <div class="container-fluid p-0">
+    <!-- 会社ロゴ -->
+    <a th:href="@{/home}"><img th:src="@{/images/logo.png}" alt="会社ロゴ" class="navbar-brand corp-logo"></a>
+    <!-- トグルボタン -->
+    <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+      aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- ナビバー内容 -->
+    <div class="collapse navbar-collapse px-2" id="navbarToggler">
+      <!-- メニュー左 -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a th:href="@{/sample}" class="nav-link">
+            サンプル集
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuMst" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false" th:text="#{mst}" />
+          <ul class="dropdown-menu text-white px-2" ria-labelledby="dropdownMenuMst">
+            <li>
+              <a th:href="@{/user/search}" th:text="#{user}" class="dropdown-item nav-link" />
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- メニュー右 -->
+      <ul class="navbar-nav ms-auto">
+        <!-- ログインユーザー情報 -->
+        <li class="nav-item">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-person-circle"></i>
+            <a th:href="@{/account/search}" sec:authentication="principal.userNm" class="nav-link w-100 ps-1" />
+          </div>
+        </li>
+        <!-- ログアウト -->
+        <li class="nav-item">
+          <form method="post" class="navbar-nav">
+            <a th:href="@{/logout}" th:text="#{logout}" class="nav-link" />
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

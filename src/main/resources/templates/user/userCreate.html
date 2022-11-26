@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <head th:replace="common/head :: head(title = 'USER', scripts = ~{::script}, links = ~{::link})">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user.css}" />
+    <script type="text/javascript" th:src="@{/js/user.js}"></script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <form method="post" th:action="@{/user/creationConfirmation}" class="form">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <table>
+              <tr>
+                <th th:each="thUserData : ${thUserList}" th:text="${thUserData}"></th>
+              </tr>
+              <tr th:each="tdUserData : ${tdUserList}" th:object="${tdUserData}">
+                <td th:text="*{serialNo}"></td>
+                <td th:text="*{userId}"></td>
+                <td th:text="*{userNm}"></td>
+                <td th:text="*{insertUserId}"></td>
+                <td th:text="*{#dates.format(insertTimestamp, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                <td th:text="*{updateUserId}"></td>
+                <td th:text="*{#dates.format(updateTimestamp, 'yyyy/MM/dd HH:mm:ss')}"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </form>
+      </form>
+    </div>
+  </body>
+
+</html>

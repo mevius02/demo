@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <head th:replace="common/head :: head(title = 'MY ACCOUNT INFO [EDIT]', scripts = ~{::script}, links = ~{::link})">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/account.css}" />
+    <script type="text/javascript" th:src="@{/js/account.js}"></script>
+  </head>
+
+  <body>
+    <header th:replace="common/header :: header-01" />
+    <main role="main" class="container-fluid">
+      <div class="row justify-content-center">
+        <form method="post" th:action="@{/account/confirm}" class="phone-size" th:object="${accountForm}">
+          <!-- タイトル -->
+          <h1 th:text=" #{title.account.edit}" class="my-3" />
+          <!-- 失敗メッセージ -->
+          <div th:if="${failureMsg} != null" role="alert" th:utext="${failureMsg}" class="alert alert-danger" />
+          <!-- ユーザーID -->
+          <div class="row">
+            <p th:text="#{userId}" class="col-sm-6 fw-bold" />
+            <p th:text="*{userId}" class="col-sm-6" />
+            <input type="hidden" name="userId" th:value="*{userId}">
+          </div>
+          <hr class="m-1">
+          <!-- ユーザー名 -->
+          <div class="row">
+            <div class="col-sm-6 d-flex d-inline">
+              <p th:text="#{requwiedMark}" class="fw-bold requwiedMark" />
+              <p th:text="#{userNm}" class="fw-bold" />
+            </div>
+            <div class="col-sm-6">
+              <input type="text" th:field="*{userNm}" maxlength="10" class="form-control" autofocus>
+            </div>
+          </div>
+          <hr class="m-1">
+          <!-- 現在パスワード -->
+          <div class="row">
+            <div class="col-sm-6">
+              <p th:text="#{currentPassword}" class="fw-bold" />
+              <p class="fs-10 text-secondary">パスワードを変更する場合、入力してください</p>
+            </div>
+            <div class="col-sm-6">
+              <input type="password" th:field="*{currentPassword}" maxlength="100" class="form-control"
+                autocomplete="current-password">
+            </div>
+          </div>
+          <hr class="m-1">
+          <!-- 新規パスワード -->
+          <div class="row">
+            <div class="col-sm-6">
+              <p th:text="#{newPassword}" class="fw-bold" />
+              <p class="fs-10 text-secondary">パスワードを変更する場合、入力してください</p>
+            </div>
+            <div class="col-sm-6">
+              <input type="password" th:field="*{newPassword}" maxlength="100" class="form-control"
+                autocomplete="new-password">
+            </div>
+          </div>
+          <hr class="m-1">
+          <!-- 新規パスワード[確認用] -->
+          <div class="row">
+            <div class="col-sm-6">
+              <p th:text="#{newPasswordConfirmation}" class="fw-bold" />
+              <p class="fs-10 text-secondary">パスワードを変更する場合、入力してください</p>
+            </div>
+            <div class="col-sm-6">
+              <input type="password" th:field="*{newPasswordConfirmation}" maxlength="100" class="form-control"
+                autocomplete="new-password">
+            </div>
+          </div>
+          <hr class="m-1">
+          <!-- 権限 -->
+          <div class="row">
+            <p th:text="#{authority}" class="col-sm-6 fw-bold" />
+            <p th:text="*{roleCd}" class="col-sm-6" />
+            <input type="hidden" name="roleCd" th:value="*{roleCd}">
+          </div>
+          <hr class="m-1">
+          <!-- メールアドレス -->
+          <div class="row">
+            <div class="col-sm-6 d-flex d-inline">
+              <p th:text="#{mailAddress}" class="col-sm-6 fw-bold" />
+            </div>
+            <div class="col-sm-6">
+              <input type="text" th:field="*{mailAddress}" maxlength="100" class="form-control">
+            </div>
+          </div>
+          <hr class="m-1">
+          <!-- システムテーマ -->
+          <div class="row">
+            <div class="col-sm-6 d-flex d-inline">
+              <p th:text="#{requwiedMark}" class="fw-bold requwiedMark" />
+              <p th:text="#{systemThema}" class="col-sm-6 fw-bold" />
+            </div>
+            <div class="col-sm-6">
+              <select th:field="*{systemThemaCd}" aria-label="Default select example" class="form-select">
+                <option th:each="systemThemaRecord : ${systemThemaList}" th:value="${systemThemaRecord.cd}"
+                  th:text="${systemThemaRecord.cd} + ' - ' + ${systemThemaRecord.nm}"
+                  th:selected="${systemThemaRecord.cd} == *{systemThemaCd}">
+                </option>
+              </select>
+            </div>
+          </div>
+          <hr class="m-1">
+          <!-- アカウント有効期限 -->
+          <div class="row">
+            <p th:text="#{account} + #{expiration}" class="col-sm-6 fw-bold" />
+            <p th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-6" />
+            <input type="hidden" name="accountExpiration"
+              th:value="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}">
+          </div>
+          <hr class="m-1">
+          <!-- パスワード有効期限 -->
+          <div class="row">
+            <p th:text="#{password} + #{expiration}" class="col-sm-6 fw-bold" />
+            <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-6" />
+            <input type="hidden" name="passwordExpiration"
+              th:value="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}">
+          </div>
+          <!-- アカウント有効フラグ -->
+          <!-- <div class="row">
+            <p th:text="#{account} + #{enabled} + #{flg}" class="col-sm-6 fw-bold" />
+            <p th:if="*{enabled == true}" th:text="${T(com.example.demo.enums.EnabledFlg).Enabled.getNm()}"
+              class="col-sm-6" />
+            <p th:if="*{enabled == false}" th:text="${T(com.example.demo.enums.EnabledFlg).Disabled.getNm()}"
+              class="col-sm-6 text-danger fw-bold" />
+          </div>
+          <hr class="m-1"> -->
+          <!-- アカウント削除フラグ -->
+          <!-- <div class="row">
+            <p th:text="#{account} + #{deleted} + #{flg}" class="col-sm-6 fw-bold" />
+            <p th:if="*{deleted == true}" th:text="${T(com.example.demo.enums.DeletedFlg).Deleted.getNm()}"
+              class="col-sm-6 text-danger fw-bold" />
+            <p th:if="*{deleted == false}" th:text="${T(com.example.demo.enums.DeletedFlg).UnDeleted.getNm()}"
+              class="col-sm-6" />
+          </div> -->
+          <div class="row my-3">
+            <div class="col text-start">
+              <a id="backBtn" th:text="#{back}" th:href="@{/account/search}" class="btn btn-secondary" />
+            </div>
+            <div class="col text-end">
+              <button type="submit" id="confirmBtn" th:text="#{confirm}" class="btn btn-primary" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer th:replace="common/footer :: footer-01" />
+  </body>
+
+</html>

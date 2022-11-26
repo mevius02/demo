@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="tables" targetRuntime="MyBatis3">
+
+		<plugin
+			type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<plugin
+			type="org.mybatis.generator.plugins.MapperAnnotationPlugin" />
+
+		<!-- スキーマ情報を取得する DB への接続設定 -->
+		<jdbcConnection driverClass="org.postgresql.Driver"
+			connectionURL="jdbc:postgresql://localhost:5432/postgres"
+			userId="postgres" password="postgres" />
+
+		<!-- SELECT 結果等を格納するドメインモデルを生成する設定 -->
+		<javaModelGenerator
+			targetPackage="com.example.demo.model.mybatis"
+			targetProject="demo/src/main/java">
+		</javaModelGenerator>
+
+		<!-- SQL 設定が記述された XML を生成する設定 -->
+		<sqlMapGenerator
+			targetPackage="com.example.demo.mapper.mybatis"
+			targetProject="demo/src/main/resources">
+		</sqlMapGenerator>
+
+		<!-- マッパークラスを生成する設定 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.example.demo.mapper.mybatis"
+			targetProject="demo/src/main/java">
+		</javaClientGenerator>
+
+		<!-- コードを生成するテーブルを指定 -->
+		<table schema="public" tableName="m_user" />
+		<table schema="public" tableName="m_user_detail" />
+		<table schema="public" tableName="m_role" />
+		<table schema="public" tableName="m_gendar" />
+		<table schema="public" tableName="m_system_thema" />
+		<table schema="public" tableName="m_prefecture" />
+
+	</context>
+</generatorConfiguration>

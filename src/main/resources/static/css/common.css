@@ -1,0 +1,302 @@
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* html */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+html {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* body */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* main */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* header */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* footer */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.footer {
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+  height: 50px;
+  line-height: 50px;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* a */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* p */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+p {
+  margin: 0;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input text */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input password */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input button */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input submit */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* font-size */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.fs-7 {
+  font-size: 0.9rem;
+}
+.fs-8 {
+  font-size: 0.8rem;
+}
+.fs-9 {
+  font-size: 0.7rem;
+}
+.fs-10 {
+  font-size: 0.6rem;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* grid-size */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.xxl-size {
+  max-width: 1400px;
+}
+.xl-size {
+  max-width: 1200px;
+}
+.lg-size {
+  max-width: 992px;
+}
+.md-size {
+  max-width: 768px;
+}
+.sm-size {
+  max-width: 576px;
+}
+.phone-size {
+  max-width: 500px;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* etc */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* オートコンプリート時の背景色変更不可設定 */
+/* input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px white inset;
+} */
+.corp-logo {
+  width: 60px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+}
+/* PC・スマホどちらかだけ表示設定 */
+.show-pc {
+  display: block;
+}
+.show-phone {
+  display: none;
+}
+@media screen and (max-width: 500px) {
+  .show-pc {
+    display: none;
+  }
+  .show-phone {
+    display: block;
+  }
+}
+/* トグル(ハンバーガー)線色 */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(53, 54, 58, 1)' stroke-width='3' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+.requwiedMark {
+  color: rgb(255, 0, 0);
+}
+/* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+/* simple */
+/* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+/* トグル(ハンバーガー)枠線色 */
+.simple * > .navbar-toggler:focus {
+  box-shadow: none;
+}
+/* トグル(ハンバーガー)三本線色 */
+.simple * > .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='3' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* header */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.simple > header {
+  background-color: rgb(13, 110, 253);
+}
+.simple > header * > .dropdown-menu {
+  background-color: rgb(100, 162, 255);
+}
+.simple * > .dropdown-item:hover {
+  background-color: rgb(100, 162, 255);
+}
+.simple > header * > a {
+  color: rgb(255, 255, 255);
+}
+.simple > header * > .bi {
+  color: rgb(255, 255, 255);
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* footer */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.simple > footer {
+  width: 100%;
+  background-color: rgb(13, 110, 253);
+}
+.simple > footer * > p {
+  color: rgb(255, 255, 255);
+}
+
+/* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+/* windows */
+/* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* body */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.windows {
+  background-color: rgb(20, 27, 33);
+  font-family: arial, sans-serif;
+  color: rgb(255, 255, 255);
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* header */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.windows > header {
+  width: 100%;
+  height: 50px;
+  background-color: rgb(41, 143, 204);
+}
+
+/* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+/* google-dark */
+/* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+/* トグル(ハンバーガー)枠線色 */
+.google-dark * > .navbar-toggler:focus {
+  box-shadow: none;
+}
+/* トグル(ハンバーガー)三本線色 */
+.google-dark * > .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='3' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* body */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark {
+  background-color: rgb(32, 33, 35);
+  font-family: arial, sans-serif;
+  font-size: medium;
+  color: rgb(189, 193, 198);
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* header */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark > header {
+  background-color: rgb(53, 54, 58);
+}
+.google-dark > header * > .dropdown-menu {
+  background-color: rgb(53, 54, 58);
+  border: 3px solid rgb(32, 33, 35);
+}
+.google-dark * > .dropdown-item:hover {
+  background-color: rgb(53, 54, 58);
+}
+.google-dark > header * > a {
+  color: rgb(255, 255, 255);
+}
+.google-dark > header * > .bi {
+  color: rgb(255, 255, 255);
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* footer */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark > footer {
+  width: 100%;
+  background-color: rgb(23, 23, 23) !important;
+}
+.google-dark > footer * > p {
+  color: rgb(255, 255, 255);
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* a */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark > a,
+.google-dark * > a {
+  color: rgb(138, 180, 248);
+  text-decoration: none;
+}
+.google-dark > a:hover,
+.google-dark * > a:hover {
+  color: rgb(138, 180, 248);
+  text-decoration: underline;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input text */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark * > input[type="text"],
+.google-dark > input[type="text"] {
+  width: 100%;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input password */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark * > input[type="password"],
+.google-dark > input[type="password"] {
+  width: 100%;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input button */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark * > button,
+.google-dark > button {
+  height: 40px;
+  color: rgb(189, 193, 198) !important;
+  background-color: rgb(48, 49, 52) !important;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input submit */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark * > button[type="submit"],
+.google-dark > button[type="submit"] {
+  height: 40px;
+  color: rgb(189, 193, 198) !important;
+  background-color: rgb(48, 49, 52) !important;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: none;
+  border-radius: 20px;
+}
+.google-dark * > button[type="submit"]:hover,
+.google-dark > button[type="submit"]:hover {
+  text-decoration: underline;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* etc */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.google-dark > .error-msg,
+.google-dark * > .error-msg {
+  color: rgb(255, 119, 94);
+}

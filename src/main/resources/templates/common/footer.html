@@ -1,0 +1,21 @@
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<!-- 01 -->
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<footer th:fragment="footer-01" class="footer bg-primary">
+  <div class="container-fluid px-1">
+    <div class="row m-0">
+      <!-- 余白 -->
+      <div class="col show-pc">
+        &nbsp;
+      </div>
+      <!-- 会社名 -->
+      <div class="col">
+        <p th:text="#{corp}" class="text-center m-0 fs-8 fw-bolder" />
+      </div>
+      <!-- 現在日時 -->
+      <div class="col show-pc">
+        <p id="timestamp" class="text-end m-0 fs-8 fw-bolder" />
+      </div>
+    </div>
+  </div>
+</footer>

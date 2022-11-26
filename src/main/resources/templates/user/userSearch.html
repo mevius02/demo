@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <head th:replace="common/head :: head(title = 'USER', scripts = ~{::script}, links = ~{::link})">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user.css}" />
+    <script type="text/javascript" th:src="@{/js/user.js}"></script>
+  </head>
+
+  <body>
+    <header th:replace="common/header :: header-01" />
+    <main role="main" class="container-fluid">
+      <div class="row justify-content-center">
+        <!-- タイトル -->
+        <h1 th:text="#{title.mst.user.search}" class="my-3" />
+        <div class="overflow-auto" style="max-width:99%;">
+          <table class="table table-striped table-hover text-nowrap" style="font-size: smaller;">
+            <thead class="sticky-top">
+              <tr>
+                <th th:each="thUserData : ${thUserList}" th:text="${thUserData}" />
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="tdUserData : ${tdUserList}" th:object="${tdUserData}">
+                <td th:text="*{userId}" />
+                <td th:text="*{userNm}" />
+                <td th:text="*{roleCd}" />
+                <!-- <td th:text="*{roleNm}" /> -->
+                <td th:text="*{mailAddress}" />
+                <td th:text="*{systemThemaCd}" />
+                <!-- <td th:text="*{systemThemaCd} + *{systemThemaNm}" /> -->
+                <td th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm:ss')}" />
+                <td th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm:ss')}" />
+                <td th:if="*{enabled == true}" th:text="${T(com.example.demo.enums.EnabledFlg).Enabled.getNm()}" />
+                <td th:if="*{enabled == false}" th:text="${T(com.example.demo.enums.EnabledFlg).Disabled.getNm()}"
+                  class="text-danger" />
+                <td th:if="*{deleted == true}" th:text="${T(com.example.demo.enums.DeletedFlg).Deleted.getNm()}"
+                  class="text-danger" />
+                <td th:if="*{deleted == false}" th:text="${T(com.example.demo.enums.DeletedFlg).UnDeleted.getNm()}" />
+                <td th:text="*{insertUserId}" />
+                <td th:text="*{#dates.format(insertTimestamp, 'yyyy/MM/dd HH:mm:ss')}" />
+                <td th:text="*{updateUserId}" />
+                <td th:text="*{#dates.format(updateTimestamp, 'yyyy/MM/dd HH:mm:ss')}" />
+                <td th:text="*{deleteUserId}" />
+                <td th:text="*{#dates.format(deleteTimestamp, 'yyyy/MM/dd HH:mm:ss')}" />
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+    <footer th:replace="common/footer :: footer-01" />
+  </body>
+
+</html>

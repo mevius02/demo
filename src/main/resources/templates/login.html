@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <head>
+    <meta charset="UTF-8">
+    <!-- スマホサイズ自動調整設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- タイトル -->
+    <title>LOGIN</title>
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+  </head>
+
+  <style>
+    html {
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 50px;
+    }
+
+    .footer {
+      position: absolute;
+      width: 100vw;
+      bottom: 0;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    .phone-width {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .corp-logo {
+      width: 60px;
+      height: 60px;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* PC・スマホどちらかだけ表示設定 */
+    .show-pc {
+      display: block;
+    }
+
+    .show-phone {
+      display: none;
+    }
+
+    @media screen and (max-width: 500px) {
+      .show-pc {
+        display: none;
+      }
+
+      .show-phone {
+        display: block;
+      }
+    }
+
+    /* トグル(ハンバーガー)線色 */
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(53, 54, 58, 1)' stroke-width='3' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    .fs-7 {
+      font-size: 0.9rem;
+    }
+
+    .fs-8 {
+      font-size: 0.8rem;
+    }
+  </style>
+
+  <script>
+    // 現在日時の表示
+    $(function () {
+      setInterval(function () {
+        var today = new Date();
+        $weekday = ["日", "月", "火", "水", "木", "金", "土"];
+        month = today.getMonth() + 1;
+        $("#timestamp").html(
+          today.getFullYear() +
+          "/" +
+          month +
+          "/" +
+          today.getDate() +
+          "(" +
+          $weekday[today.getDay()] +
+          ") " +
+          today.getHours() +
+          ":" +
+          ("0" + today.getMinutes()).slice(-2)
+        );
+      }, 0);
+    });
+
+    // 入力半角のみ
+    function harfWidthOnly($this) {
+      var str = $this.value;
+      while (str.match(/[^A-Z^a-z\d\-]/)) {
+        str = str.replace(/[^A-Z^a-z\d\-]/, "");
+      }
+      $this.value = str;
+    }
+
+    // Key[Enter]でタブ移動
+    $(document).ready(function () {
+      $("#userId").keypress(function (e) {
+        if (e.keyCode == 13) {
+          $("#password").focus();
+          return false;
+        }
+      });
+      $("#password").keypress(function (e) {
+        if (e.keyCode == 13) {
+          $("#remember-me").focus();
+          return false;
+        }
+      });
+      $("#remember-me").keypress(function (e) {
+        $("#loginBtn").submit();
+      });
+    });
+  </script>
+
+  <body>
+    <header class="navbar navbar-expand-md bg-primary p-0 sticky-top">
+      <div class="container-fluid p-0">
+        <!-- 会社ロゴ -->
+        <a th:href="@{/home}"><img th:src="@{/images/logo.png}" alt="会社ロゴ" class="navbar-brand corp-logo"></a>
+      </div>
+    </header>
+
+    <main>
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <!-- ログインForm -->
+          <form method="post" th:action="@{/login}" class="col-sm-8 col-md-6 col-xl-4">
+            <!-- タイトル -->
+            <h1 th:text="#{title.login.en}" class="my-3" />
+            <!-- エラーメッセージ -->
+            <div th:if="${param.error}" class="mb-3">
+              <p th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}"
+                th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}" style="color:rgb(255, 0, 0)" />
+            </div>
+            <!-- ユーザーID -->
+            <div class="form-floating">
+              <input type="test" class="form-control" id="userId" name="userId" maxlength="100"
+                th:placeholder="#{userId.en}" oninput="harfWidthOnly(this)" autofocus>
+              <label th:text="#{userId}" />
+            </div>
+            <!-- パスワード -->
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="password" name="password" maxlength="50"
+                th:placeholder="#{password.en}">
+              <label th:text="#{password}" />
+            </div>
+            <!-- ログイン維持 -->
+            <div class="form-check form-switch mb-3">
+              <input type="checkbox" id="remember-me" name="remember-me" class="form-check-input">
+              <label th:text="#{remember-me}" for="remember-me" />
+            </div>
+            <!-- ログインボタン -->
+            <div class="text-end">
+              <button type="submit" id="loginBtn" th:text="#{login}" class="btn btn-primary" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer bg-primary">
+      <div class="container-fluid px-1">
+        <div class="row m-0">
+          <!-- 余白 -->
+          <div class="col show-pc">
+            &nbsp;
+          </div>
+          <!-- 会社名 -->
+          <div class="col">
+            <p th:text="#{corp}" class="text-center text-white m-0 fs-8 fw-bolder" />
+          </div>
+          <!-- 現在日時 -->
+          <div class="col show-pc">
+            <p id="timestamp" class="text-end text-white m-0 fs-8 fw-bolder" />
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+
+</html>
