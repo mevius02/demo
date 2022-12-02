@@ -10,7 +10,7 @@
     <header th:replace="common/header :: header-01" />
     <main role="main" class="container-fluid">
       <div class="row justify-content-center">
-        <div th:object="${account}" class="phone-size">
+        <div th:object="${accountForm.account}" class="phone-size">
           <!-- タイトル -->
           <h1 th:text=" #{title.account}" class="my-3" />
           <!-- 成功メッセージ -->
@@ -18,68 +18,167 @@
             class="alert alert-success" />
           <!-- ユーザーID -->
           <div class="row">
-            <p th:text="#{userId}" class="col-sm-6 fw-bold" />
-            <p th:text="*{userId}" class="col-sm-6" />
+            <div class="col-sm-5">
+              <p th:text="#{userId}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{userId}" />
+            </div>
           </div>
-          <hr class="m-1">
-          <!-- ユーザー名 -->
-          <div class="row">
-            <p th:text="#{userNm}" class="col-sm-6 fw-bold" />
-            <p th:text="*{userNm}" class="col-sm-6" />
-          </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- パスワード -->
           <div class="row">
-            <p th:text="#{currentPassword}" class="col-sm-6 fw-bold" />
-            <p class="col-sm-6">&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;</p>
+            <div class="col-sm-5">
+              <p th:text="#{currentPassword}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p>&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;</p>
+            </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- 権限 -->
           <div class="row">
-            <p th:text="#{authority}" class="col-sm-6 fw-bold" />
-            <p th:text="*{roleCd}" class="col-sm-6" />
+            <div class="col-sm-5">
+              <p th:text="#{authority}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{roleCd} + ' - ' + *{roleNm}" />
+            </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
+          <!-- ユーザー名 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{userNm}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{userNm}" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 氏名 / フリガナ -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{fullNm}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{lastNmKana} + *{firstNmKana}" class="fs-10" />
+              <p th:text="*{lastNm} + *{firstNm}" class="text-min-height" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 性別 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{gender}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{gender}" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 生年月日 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{dateOfBirth}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{#dates.format(dateOfBirth, 'yyyy/MM/dd')}" class="text-min-height" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 年齢 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{age}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{age} + ' ' + #{sai}" class="text-min-height" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 血液型 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{bloodType}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{bloodType} + ' ' + #{type}" class="text-min-height" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 郵便番号 / 都道府県 / 住所 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{address}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{postNo}" class="fs-7 text-min-height" />
+              <p th:text="*{addressKana}" class="fs-10" />
+              <p th:text="*{prefecture} + *{address}" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 電話番号 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{phoneNo}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{phoneNo}" class="text-min-height" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 携帯番号 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{mobilePhoneNo}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{mobilePhoneNo}" class="text-min-height" />
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
           <!-- メールアドレス -->
           <div class="row">
-            <p th:text="#{mailAddress}" class="col-sm-6 fw-bold" />
-            <p th:text="*{mailAddress}" class="col-sm-6" />
+            <div class="col-sm-5">
+              <p th:text="#{mailAddress}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{mailAddress}" class="text-min-height" />
+            </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- システムテーマ -->
           <div class="row">
-            <p th:text="#{systemThema}" class="col-sm-6 fw-bold" />
-            <p th:text="*{systemThemaCd}" class="col-sm-6" />
+            <div class="col-sm-5 d-flex d-inline">
+              <p th:text="#{systemThema}" class="fw-bold me-1" />
+              <div th:replace="common/modal :: tooltipsExampleSystemThema" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{systemThemaNm}" />
+            </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- アカウント有効期限 -->
           <div class="row">
-            <p th:text="#{account} + #{expiration}" class="col-sm-6 fw-bold" />
-            <p th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-6" />
+            <div class="col-sm-5">
+              <p th:text="#{account} + #{expiration}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}" />
+            </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- パスワード有効期限 -->
           <div class="row">
-            <p th:text="#{password} + #{expiration}" class="col-sm-6 fw-bold" />
-            <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-6" />
+            <div class="col-sm-5">
+              <p th:text="#{password} + #{expiration}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" />
+            </div>
           </div>
-          <!-- アカウント有効フラグ -->
-          <!-- <div class="row">
-            <p th:text="#{account} + #{enabled} + #{flg}" class="col-sm-6 fw-bold" />
-            <p th:if="*{enabled == true}" th:text="${T(com.example.demo.enums.EnabledFlg).Enabled.getNm()}"
-              class="col-sm-6" />
-            <p th:if="*{enabled == false}" th:text="${T(com.example.demo.enums.EnabledFlg).Disabled.getNm()}"
-              class="col-sm-6 text-danger fw-bold" />
-          </div>
-          <hr class="m-1"> -->
-          <!-- アカウント削除フラグ -->
-          <!-- <div class="row">
-            <p th:text="#{account} + #{deleted} + #{flg}" class="col-sm-6 fw-bold" />
-            <p th:if="*{deleted == true}" th:text="${T(com.example.demo.enums.DeletedFlg).Deleted.getNm()}"
-              class="col-sm-6 text-danger fw-bold" />
-            <p th:if="*{deleted == false}" th:text="${T(com.example.demo.enums.DeletedFlg).UnDeleted.getNm()}"
-              class="col-sm-6" />
-          </div> -->
           <div class="my-3 d-flex justify-content-center">
             <a id="editBtn" th:text="#{edit}" th:href="@{/account/edit}" class="btn btn-primary" />
           </div>

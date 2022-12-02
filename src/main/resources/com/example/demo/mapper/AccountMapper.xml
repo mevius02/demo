@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AccountMapper">
+
+  <select id="selectMyAccount" parameterType="String" resultType="com.example.demo.model.Account">
+    SELECT 
+      muser.id
+      , muser.update_cnt AS user_update_cnt
+      , muser.user_id
+      , muser.role_cd
+      , mrole.role_nm
+      , muser.user_nm
+      , muser.account_expiration
+      , muser.password_expiration
+      , muser.enabled
+      , muser.insert_user_id AS user_insert_user_id
+      , muser.insert_timestamp AS user_insert_timestamp
+      , muser.update_user_id AS user_update_user_id
+      , muser.update_timestamp AS user_update_timestamp
+      , detail.update_cnt AS detail_update_cnt
+      , detail.last_nm
+      , detail.first_nm
+      , detail.last_nm_kana
+      , detail.first_nm_kana
+      , detail.gender
+      , detail.phone_no
+      , detail.mobile_phone_no
+      , detail.mail_address
+      , detail.post_no
+      , detail.prefecture
+      , detail.address
+      , detail.address_kana
+      , detail.date_of_birth
+      , DATE_PART('YEAR', AGE(detail.date_of_birth)) AS age
+      , detail.blood_type
+      , detail.system_thema_cd
+      , thema.system_thema_nm
+      , detail.insert_user_id AS detail_insert_user_id
+      , detail.insert_timestamp AS detail_insert_timestamp
+      , detail.update_user_id AS detail_update_user_id
+      , detail.update_timestamp AS detail_update_timestamp
+    FROM 
+      public.m_user muser
+      INNER JOIN public.m_user_detail detail ON (
+        muser.user_id = detail.user_id
+      )
+      INNER JOIN public.m_role mrole ON (
+        muser.role_cd = mrole.role_cd
+      )
+      INNER JOIN public.m_system_thema thema ON (
+        detail.system_thema_cd = thema.system_thema_cd
+      )
+    <where>
+      <if test="userId != null">
+        AND muser.user_id = #{userId}
+      </if>
+    </where>
+  </select>
+
+  <update id="updateMyAccount" parameterType="com.example.demo.model.mybatis.MUser">
+    UPDATE public.m_user
+    <set>
+      <if test="password != null">
+        password = #{password, jdbcType=VARCHAR},
+      </if>
+      user_nm = #{userNm, jdbcType=VARCHAR},
+      mail_address = #{mailAddress, jdbcType=VARCHAR},
+      system_thema_cd = #{systemThemaCd, jdbcType=VARCHAR},
+      update_user_id = #{updateUserId, jdbcType=VARCHAR},
+      update_timestamp = #{updateTimestamp, jdbcType=TIMESTAMP},
+    </set>
+    <where>
+      AND user_id = #{userId, jdbcType=VARCHAR}
+    </where>
+  </update>
+
+</mapper>

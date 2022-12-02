@@ -120,6 +120,10 @@ p {
 /* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
 /* simple */
 /* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+.font-simple {
+  font-family: system-ui;
+}
+
 /* トグル(ハンバーガー)枠線色 */
 .simple * > .navbar-toggler:focus {
   box-shadow: none;
@@ -156,10 +160,19 @@ p {
 .simple > footer * > p {
   color: rgb(255, 255, 255);
 }
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* icon */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.simple * > .bi {
+  color: rgb(13, 110, 253);
+}
 
 /* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
 /* windows */
 /* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+.font-win {
+  font-family: Roboto, Helvetica, sans-serif;
+}
 /* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
 /* body */
 /* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
@@ -180,6 +193,9 @@ p {
 /* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
 /* google-dark */
 /* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
+.font-google {
+  font-family: arial, sans-serif;
+}
 /* トグル(ハンバーガー)枠線色 */
 .google-dark * > .navbar-toggler:focus {
   box-shadow: none;
@@ -299,4 +315,10 @@ p {
 .google-dark > .error-msg,
 .google-dark * > .error-msg {
   color: rgb(255, 119, 94);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.text-min-height {
+  min-height: 24px;
 }

@@ -1,0 +1,21 @@
+INSERT INTO
+    m_user
+VALUES
+    (
+        NEXTVAL('seq_m_user_serial_no'),
+        'test',
+        '$2a$10$8YORDh/VMyoQNjMZbD83K.BWJmnZuwyOJ99t/zejtjpQv.8B5pE4K',
+        'ADMIN',
+        'テスト',
+        'test@yahoo.co.jp',
+        '20301231',
+        '20301231',
+        TRUE,
+        FALSE,
+        'init',
+        NOW(),
+        NULL,
+        NULL,
+        NULL,
+        NULL
+    );

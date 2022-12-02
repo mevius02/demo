@@ -10,130 +10,326 @@
     <header th:replace="common/header :: header-01" />
     <main role="main" class="container-fluid">
       <div class="row justify-content-center">
-        <form method="post" th:action="@{/account/confirm}" class="phone-size" th:object="${accountForm}">
+        <form method="post" th:action="@{/account/confirm}" class="phone-size needs-validation was-validated h-adr"
+          th:object="${accountForm.account}" novalidate>
           <!-- タイトル -->
           <h1 th:text=" #{title.account.edit}" class="my-3" />
           <!-- 失敗メッセージ -->
           <div th:if="${failureMsg} != null" role="alert" th:utext="${failureMsg}" class="alert alert-danger" />
           <!-- ユーザーID -->
           <div class="row">
-            <p th:text="#{userId}" class="col-sm-6 fw-bold" />
-            <p th:text="*{userId}" class="col-sm-6" />
-            <input type="hidden" name="userId" th:value="*{userId}">
-          </div>
-          <hr class="m-1">
-          <!-- ユーザー名 -->
-          <div class="row">
-            <div class="col-sm-6 d-flex d-inline">
-              <p th:text="#{requwiedMark}" class="fw-bold requwiedMark" />
-              <p th:text="#{userNm}" class="fw-bold" />
+            <div class="col-sm-5">
+              <p th:text="#{userId}" class="fw-bold" />
             </div>
-            <div class="col-sm-6">
-              <input type="text" th:field="*{userNm}" maxlength="10" class="form-control" autofocus>
+            <div class="col-sm-7">
+              <p th:text="*{userId}" />
+              <input type="hidden" th:field="*{userId}">
             </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- 現在パスワード -->
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
               <p th:text="#{currentPassword}" class="fw-bold" />
-              <p class="fs-10 text-secondary">パスワードを変更する場合、入力してください</p>
+              <p class="fs-10 text-secondary">パスワードを変更する場合、入力して下さい</p>
             </div>
-            <div class="col-sm-6">
-              <input type="password" th:field="*{currentPassword}" maxlength="100" class="form-control"
-                autocomplete="current-password">
+            <div class="col-sm-7">
+              <div class="input-group">
+                <th:block th:replace="common/inputGroupIcon :: showPassword('account.currentPassword')" />
+                <input type="password" th:field="*{currentPassword}" maxlength="100" class="form-control" autofocus>
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.currentPassword')" />
+              </div>
             </div>
+            <div th:errors="*{currentPassword}" class="text-danger" />
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- 新規パスワード -->
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
               <p th:text="#{newPassword}" class="fw-bold" />
-              <p class="fs-10 text-secondary">パスワードを変更する場合、入力してください</p>
+              <p class="fs-10 text-secondary">パスワードを変更する場合、入力して下さい</p>
             </div>
-            <div class="col-sm-6">
-              <input type="password" th:field="*{newPassword}" maxlength="100" class="form-control"
-                autocomplete="new-password">
+            <div class="col-sm-7">
+              <div class="input-group">
+                <th:block th:replace="common/inputGroupIcon :: showPassword('account.newPassword')" />
+                <input type="password" th:field="*{newPassword}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.newPassword')" />
+              </div>
             </div>
+            <div th:errors="*{newPassword}" class="text-danger" />
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- 新規パスワード[確認用] -->
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
               <p th:text="#{newPasswordConfirmation}" class="fw-bold" />
-              <p class="fs-10 text-secondary">パスワードを変更する場合、入力してください</p>
+              <p class="fs-10 text-secondary">パスワードを変更する場合、入力して下さい</p>
             </div>
-            <div class="col-sm-6">
-              <input type="password" th:field="*{newPasswordConfirmation}" maxlength="100" class="form-control"
-                autocomplete="new-password">
+            <div class="col-sm-7">
+              <div class="input-group">
+                <th:block th:replace="common/inputGroupIcon :: showPassword('account.newPasswordConfirmation')" />
+                <input type="password" th:field="*{newPasswordConfirmation}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.newPasswordConfirmation')" />
+              </div>
             </div>
+            <div th:errors="*{newPasswordConfirmation}" class="text-danger" />
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- 権限 -->
           <div class="row">
-            <p th:text="#{authority}" class="col-sm-6 fw-bold" />
-            <p th:text="*{roleCd}" class="col-sm-6" />
-            <input type="hidden" name="roleCd" th:value="*{roleCd}">
+            <div class="col-sm-5">
+              <p th:text="#{authority}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{roleCd} + ' - ' + *{roleNm}" />
+              <input type="hidden" th:field="*{roleCd}">
+              <input type="hidden" th:field="*{roleNm}">
+            </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
+          <!-- ユーザー名 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <label for="userNm" class="form-label d-flex d-inlin m-0">
+                <p th:text="#{requwiedMark}" class="fw-bold requwiedMark" />
+                <p th:text="#{userNm}" class="fw-bold" />
+              </label>
+              <p class="fs-10 text-secondary">画面右上の表示名</p>
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{userNm}" maxlength="10" th:errorclass="is-invalid" class="form-control"
+                  required>
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.userNm')" />
+              </div>
+            </div>
+            <div th:errors="*{userNm}" class="text-danger" />
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 姓 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <label th:text="#{lastNm}" for="lastNm" class="form-label fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{lastNm}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.lastNm')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 名 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{firstNm}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{firstNm}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.firstNm')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- セイ -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{lastNmKana}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{lastNmKana}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.lastNmKana')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- メイ -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{firstNmKana}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{firstNmKana}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.firstNmKana')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 性別 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{gender}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <select th:field="*{gender}" aria-label="Default select example" class="form-select">
+                  <option th:each="enum : ${T(com.example.demo.enums.Gender).values()}" th:value="${enum.nm}"
+                    th:text="${enum.nm}" th:selected="${enum.nm} == *{gender}">
+                  </option>
+                </select>
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.gender')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 生年月日 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{dateOfBirth}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{dateOfBirth}" maxlength="10" class="form-control datepicker-ymd">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.dateOfBirth')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 血液型 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{bloodType}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <select th:field="*{bloodType}" aria-label="Default select example" class="form-select">
+                  <option th:each="enum : ${T(com.example.demo.enums.BloodType).values()}" th:value="${enum.nm}"
+                    th:text="${enum.nm}" th:selected="${enum.nm} == *{bloodType}">
+                  </option>
+                </select>
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.bloodType')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 郵便番号 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{postNo}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{postNo}" maxlength="8" class="form-control p-postal-code">
+                <input type="hidden" class="p-country-name" value="Japan">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.postNo')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 都道府県 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{prefecture}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <select th:field="*{prefecture}" aria-label="Default select example" class="form-select p-region">
+                  <option th:each="enum : ${T(com.example.demo.enums.Prefecture).values()}" th:value="${enum.nm}"
+                    th:text="${enum.nm}" th:selected="${enum.nm} == *{prefecture}">
+                  </option>
+                </select>
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.prefecture')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 住所 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{address}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{address}" maxlength="100"
+                  class="form-control p-locality p-street-address p-extended-address">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.address')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 住所[フリガナ] -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{addressKana}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{addressKana}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.addressKana')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 電話番号 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{phoneNo}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{phoneNo}" maxlength="13" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.phoneNo')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
+          <!-- 携帯番号 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <p th:text="#{mobilePhoneNo}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{mobilePhoneNo}" maxlength="13" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.mobilePhoneNo')" />
+              </div>
+            </div>
+          </div>
+          <hr class="m-1 text-secondary" size="5">
           <!-- メールアドレス -->
           <div class="row">
-            <div class="col-sm-6 d-flex d-inline">
-              <p th:text="#{mailAddress}" class="col-sm-6 fw-bold" />
+            <div class="col-sm-5">
+              <p th:text="#{mailAddress}" class="fw-bold" />
             </div>
-            <div class="col-sm-6">
-              <input type="text" th:field="*{mailAddress}" maxlength="100" class="form-control">
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="text" th:field="*{mailAddress}" maxlength="100" class="form-control">
+                <th:block th:replace="common/inputGroupIcon :: clearInput('account.mailAddress')" />
+              </div>
             </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- システムテーマ -->
           <div class="row">
-            <div class="col-sm-6 d-flex d-inline">
-              <p th:text="#{requwiedMark}" class="fw-bold requwiedMark" />
-              <p th:text="#{systemThema}" class="col-sm-6 fw-bold" />
+            <div class="col-sm-5 d-flex d-inline">
+              <p th:text="#{systemThema}" class="fw-bold me-1" />
+              <div th:replace="common/modal :: tooltipsExampleSystemThema" />
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
               <select th:field="*{systemThemaCd}" aria-label="Default select example" class="form-select">
                 <option th:each="systemThemaRecord : ${systemThemaList}" th:value="${systemThemaRecord.cd}"
-                  th:text="${systemThemaRecord.cd} + ' - ' + ${systemThemaRecord.nm}"
-                  th:selected="${systemThemaRecord.cd} == *{systemThemaCd}">
+                  th:text="${systemThemaRecord.nm}" th:selected="${systemThemaRecord.cd} == *{systemThemaCd}">
                 </option>
               </select>
             </div>
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- アカウント有効期限 -->
           <div class="row">
-            <p th:text="#{account} + #{expiration}" class="col-sm-6 fw-bold" />
-            <p th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-6" />
-            <input type="hidden" name="accountExpiration"
-              th:value="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}">
+            <p th:text="#{account} + #{expiration}" class="col-sm-5 fw-bold" />
+            <p th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-7" />
+            <input type="hidden" th:field="*{accountExpiration}">
           </div>
-          <hr class="m-1">
+          <hr class="m-1 text-secondary" size="5">
           <!-- パスワード有効期限 -->
           <div class="row">
-            <p th:text="#{password} + #{expiration}" class="col-sm-6 fw-bold" />
-            <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-6" />
-            <input type="hidden" name="passwordExpiration"
-              th:value="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}">
+            <p th:text="#{password} + #{expiration}" class="col-sm-5 fw-bold" />
+            <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-7" />
+            <input type="hidden" th:field="*{passwordExpiration}">
           </div>
-          <!-- アカウント有効フラグ -->
-          <!-- <div class="row">
-            <p th:text="#{account} + #{enabled} + #{flg}" class="col-sm-6 fw-bold" />
-            <p th:if="*{enabled == true}" th:text="${T(com.example.demo.enums.EnabledFlg).Enabled.getNm()}"
-              class="col-sm-6" />
-            <p th:if="*{enabled == false}" th:text="${T(com.example.demo.enums.EnabledFlg).Disabled.getNm()}"
-              class="col-sm-6 text-danger fw-bold" />
-          </div>
-          <hr class="m-1"> -->
-          <!-- アカウント削除フラグ -->
-          <!-- <div class="row">
-            <p th:text="#{account} + #{deleted} + #{flg}" class="col-sm-6 fw-bold" />
-            <p th:if="*{deleted == true}" th:text="${T(com.example.demo.enums.DeletedFlg).Deleted.getNm()}"
-              class="col-sm-6 text-danger fw-bold" />
-            <p th:if="*{deleted == false}" th:text="${T(com.example.demo.enums.DeletedFlg).UnDeleted.getNm()}"
-              class="col-sm-6" />
-          </div> -->
           <div class="row my-3">
             <div class="col text-start">
               <a id="backBtn" th:text="#{back}" th:href="@{/account/search}" class="btn btn-secondary" />

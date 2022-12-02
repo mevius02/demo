@@ -1,0 +1,50 @@
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<!-- システムテーマ見本 -->
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<div th:fragment="tooltipsExampleSystemThema">
+  <a data-bs-toggle="modal" data-bs-target="#tooltipsExampleSystemThema">
+    <i class="bi bi-question-circle-fill cursor-pointer"></i>
+  </a>
+  <div id="tooltipsExampleSystemThema" tabindex="-1" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">システムテーマ見本</h5>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-close" />
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid p-0">
+            <div class="row mb-3">
+              <div class="col-lg-9 mb-3">
+                <h5 id="exampleModalLabel" class="modal-title font-simple">
+                  シンプル(PC)</h5>
+                <img th:src="@{/images/exampleSystemThema/SystemThema_simple(pc).png}" alt="システムテーマの見本(シンプル)"
+                  class="w-100">
+              </div>
+              <div class="col-lg-3">
+                <h5 id="exampleModalLabel" class="modal-title font-simple">シンプル(スマホ)</h5>
+                <img th:src="@{/images/exampleSystemThema/SystemThema_simple(phone).png}" alt="システムテーマの見本(シンプル[スマホ])"
+                  class="w-100">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-9 mb-3">
+                <h5 id="exampleModalLabel" class="modal-title font-google">Googleダークモード風(PC)</h5>
+                <img th:src="@{/images/exampleSystemThema/SystemThema_google-dark(pc).png}" alt="システムテーマの見本(グーグルダーク風)"
+                  class="w-100">
+              </div>
+              <div class="col-lg-3">
+                <h5 id="exampleModalLabel" class="modal-title font-google">Googleダークモード風(スマホ)</h5>
+                <img th:src="@{/images/exampleSystemThema/SystemThema_google-dark(phone).png}"
+                  alt="システムテーマの見本(グーグルダーク風[スマホ])" class="w-100">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<!--  -->
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->

@@ -12,9 +12,10 @@ import org.thymeleaf.util.StringUtils;
 import com.example.demo.login.UserDetailsImpl;
 import com.example.demo.service.common.CommonService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+// ↓ ログ出力で使う
+// import lombok.extern.slf4j.Slf4j;
+// @Slf4j
+// log.info("msg");
 @Controller
 @RequestMapping("/common")
 public class CommonController {

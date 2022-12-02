@@ -39,9 +39,6 @@ public class User {
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@Column(name = "deleted")
-	private boolean deleted;
-
 	public User() {
 	}
 
@@ -84,9 +81,5 @@ public class User {
 
 	public boolean isEnabled() {
 		return enabled;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
 	}
 }

@@ -8,26 +8,41 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.mapper.mybatis.MPrefectureMapper;
+import com.example.demo.mapper.mybatis.MRoleMapper;
 import com.example.demo.mapper.mybatis.MSystemThemaMapper;
 import com.example.demo.model.common.GenericRecord;
-import com.example.demo.model.mybatis.MPrefecture;
-import com.example.demo.model.mybatis.MPrefectureExample;
+import com.example.demo.model.mybatis.MRole;
+import com.example.demo.model.mybatis.MRoleExample;
 import com.example.demo.model.mybatis.MSystemThema;
 import com.example.demo.model.mybatis.MSystemThemaExample;
 
 @Service
 @Transactional
-public class DropDownService {
+public class DropdownService {
 
     @Autowired
-    MSystemThemaMapper mSystemThemaMapper;
+    MRoleMapper mRoleMapper;
     @Autowired
-    MPrefectureMapper mPrefectureMapper;
+    MSystemThemaMapper mSystemThemaMapper;
+
+    public List<GenericRecord> getRoleList() {
+        MRoleExample example = new MRoleExample();
+        example.createCriteria().andEnabledEqualTo(true);
+        example.setOrderByClause("order_no, role_cd");
+        List<MRole> Rolelist = mRoleMapper.selectByExample(example);
+        List<GenericRecord> list = new ArrayList<>();
+        for (MRole roleRecord : Rolelist) {
+            GenericRecord record = new GenericRecord();
+            record.setCd(roleRecord.getRoleCd());
+            record.setNm(roleRecord.getRoleNm());
+            list.add(record);
+        }
+        return list;
+    }
 
     public List<GenericRecord> getSystemThemaList() {
         MSystemThemaExample example = new MSystemThemaExample();
-        example.createCriteria().andDeletedEqualTo(false);
+        example.createCriteria().andEnabledEqualTo(true);
         example.setOrderByClause("order_no, system_thema_cd");
         List<MSystemThema> systemThemalist = mSystemThemaMapper.selectByExample(example);
         List<GenericRecord> list = new ArrayList<>();
@@ -35,21 +50,6 @@ public class DropDownService {
             GenericRecord record = new GenericRecord();
             record.setCd(systemThemaRecord.getSystemThemaCd());
             record.setNm(systemThemaRecord.getSystemThemaNm());
-            list.add(record);
-        }
-        return list;
-    }
-
-    public List<GenericRecord> getPrefectureList() {
-        MPrefectureExample example = new MPrefectureExample();
-        example.createCriteria().andDeletedEqualTo(false);
-        example.setOrderByClause("order_no, system_thema_cd");
-        List<MPrefecture> Prefecturelist = mPrefectureMapper.selectByExample(example);
-        List<GenericRecord> list = new ArrayList<>();
-        for (MPrefecture PrefectureRecord : Prefecturelist) {
-            GenericRecord record = new GenericRecord();
-            record.setCd(PrefectureRecord.getPrefectureCd());
-            record.setNm(PrefectureRecord.getPrefectureNm());
             list.add(record);
         }
         return list;

@@ -13,9 +13,10 @@ import com.example.demo.login.UserDetailsImpl;
 import com.example.demo.model.mybatis.MUser;
 import com.example.demo.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+// ↓ ログ出力で使う
+// import lombok.extern.slf4j.Slf4j;
+// @Slf4j
+// log.info("msg");
 @Controller
 @RequestMapping("/user")
 public class UserController {
