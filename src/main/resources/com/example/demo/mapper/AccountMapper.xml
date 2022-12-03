@@ -4,8 +4,7 @@
 
   <select id="selectMyAccount" parameterType="String" resultType="com.example.demo.model.Account">
     SELECT 
-      muser.id
-      , muser.update_cnt AS user_update_cnt
+      muser.update_cnt AS user_update_cnt
       , muser.user_id
       , muser.role_cd
       , mrole.role_nm
@@ -57,7 +56,7 @@
     </where>
   </select>
 
-  <update id="updateMyAccount" parameterType="com.example.demo.model.mybatis.MUser">
+  <!-- <update id="updateMyAccount" parameterType="com.example.demo.model.mybatis.MUser">
     UPDATE public.m_user
     <set>
       <if test="password != null">
@@ -72,6 +71,6 @@
     <where>
       AND user_id = #{userId, jdbcType=VARCHAR}
     </where>
-  </update>
+  </update> -->
 
 </mapper>

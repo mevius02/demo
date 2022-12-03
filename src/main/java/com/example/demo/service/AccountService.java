@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,13 @@ import org.thymeleaf.util.StringUtils;
 import com.example.demo.common.GlobalVariable;
 import com.example.demo.form.AccountForm;
 import com.example.demo.mapper.AccountMapper;
+import com.example.demo.mapper.mybatis.MUserDetailMapper;
 import com.example.demo.mapper.mybatis.MUserMapper;
 import com.example.demo.model.Account;
 import com.example.demo.model.mybatis.MUser;
+import com.example.demo.model.mybatis.MUserDetail;
+import com.example.demo.model.mybatis.MUserDetailExample;
+import com.example.demo.model.mybatis.MUserExample;
 
 @Service
 @Transactional
@@ -23,6 +28,8 @@ public class AccountService extends GlobalVariable {
 
     @Autowired
     MUserMapper mUserMapper;
+    @Autowired
+    MUserDetailMapper mUserDetailMapper;
     @Autowired
     AccountMapper accountMapper;
     @Autowired
@@ -72,24 +79,48 @@ public class AccountService extends GlobalVariable {
         }
     }
 
-    public String updateMyAccount(String usertId, AccountForm accountForm) {
+    public String updateMyAccount(String loginUsertId, AccountForm accountForm) {
         // [更新] Mユーザー
         MUser mUser = new MUser();
-        mUser.setUserNm(accountForm.getAccount().getUserNm());
-        if (!StringUtils.isEmpty(accountForm.getAccount().getNewPassword())) {
-            mUser.setPassword(passwordEncoder.encode(accountForm.getAccount().getNewPassword()));
+        Account account = accountForm.getAccount();
+        BeanUtils.copyProperties(account, mUser);
+        mUser.setUpdateCnt(account.getUserUpdateCnt() + 1);
+        if (!StringUtils.isEmpty(account.getNewPassword())) {
+            mUser.setPassword(passwordEncoder.encode(account.getNewPassword()));
+        } else {
+            MUser tmpUser = mUserMapper.selectByPrimaryKey(loginUsertId);
+            if (tmpUser != null) {
+                mUser.setPassword(tmpUser.getPassword());
+            } else {
+                return "パスワードが更新されています";
+            }
         }
-        mUser.setUserId(accountForm.getAccount().getUserId());
-        mUser.setUserNm(accountForm.getAccount().getUserNm());
-        // mUser.setMailAddress(StringUtils.isEmpty(accountForm.getMailAddress()) ? null
-        // : accountForm.getMailAddress());
-        // mUser.setSystemThemaCd(accountForm.getSystemThemaCd());
-        mUser.setUpdateUserId(usertId);
+        mUser.setInsertUserId(account.getUserInsertUserId());
+        mUser.setInsertTimestamp(account.getUserInsertTimestamp());
+        mUser.setUpdateUserId(loginUsertId);
         mUser.setUpdateTimestamp(new Date());
-        if (1 != accountMapper.updateMyAccount(mUser)) {
+        MUserExample mUserExample = new MUserExample();
+        mUserExample.createCriteria()
+                .andUserIdEqualTo(loginUsertId)
+                .andUpdateCntEqualTo(account.getUserUpdateCnt());
+        if (1 != mUserMapper.updateByExample(mUser, mUserExample)) {
             return RETURN_FAILURE;
         }
         // [更新] Mユーザー詳細
+        MUserDetail mUserDetail = new MUserDetail();
+        BeanUtils.copyProperties(account, mUserDetail);
+        mUserDetail.setUpdateCnt(account.getDetailUpdateCnt() + 1);
+        mUserDetail.setInsertUserId(account.getDetailInsertUserId());
+        mUserDetail.setInsertTimestamp(account.getDetailInsertTimestamp());
+        mUserDetail.setUpdateUserId(loginUsertId);
+        mUserDetail.setUpdateTimestamp(new Date());
+        MUserDetailExample mUserDetailExample = new MUserDetailExample();
+        mUserDetailExample.createCriteria()
+                .andUserIdEqualTo(loginUsertId)
+                .andUpdateCntEqualTo(account.getDetailUpdateCnt());
+        if (1 != mUserDetailMapper.updateByExample(mUserDetail, mUserDetailExample)) {
+            return RETURN_FAILURE;
+        }
         return RETURN_SUCCESS;
     }
 }

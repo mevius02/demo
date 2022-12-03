@@ -12,9 +12,6 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@Column(name = "id")
-	private Integer id;
-
 	@Column(name = "update_cnt")
 	private String updateCnt;
 
@@ -45,10 +42,6 @@ public class User {
 	public User(String userId, String password, String roleCd) {
 		this.userId = userId;
 		this.password = password;
-	}
-
-	public Integer getId() {
-		return id;
 	}
 
 	public String getUpdateCnt() {

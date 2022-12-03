@@ -16,8 +16,6 @@ import lombok.Setter;
 @Setter
 public class Account {
 
-	/** ID */
-	private Integer id;
 	/** M_USER 更新回数 */
 	private Integer userUpdateCnt;
 	/** ユーザーID */
@@ -40,18 +38,22 @@ public class Account {
 	@Length(max = 20)
 	private String userNm;
 	/** アカウント有効期限 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date accountExpiration;
 	/** パスワード有効期限 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	private Date passwordExpiration;
 	/** アカウント有効フラグ */
 	private Boolean enabled;
 	/** M_USER 登録ユーザーID */
 	private String userInsertUserId;
 	/** M_USER 登録日時 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	private Date userInsertTimestamp;
 	/** M_USER 更新ユーザーID */
 	private String userUpdateUserId;
 	/** M_USER 更新日時 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	private Date userUpdateTimestamp;
 	/** M_USER_DETAIL 更新回数 */
 	private Integer detailUpdateCnt;
@@ -103,9 +105,11 @@ public class Account {
 	/** M_USER_DETAIL 登録ユーザーID */
 	private String detailInsertUserId;
 	/** M_USER_DETAIL 登録日時 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	private Date detailInsertTimestamp;
 	/** M_USER_DETAIL 更新ユーザーID */
 	private String detailUpdateUserId;
 	/** M_USER_DETAIL 更新日時 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	private Date detailUpdateTimestamp;
 }

@@ -35,8 +35,8 @@ public class AccountController extends GlobalVariable {
 	@Autowired
 	private AccountService accountService;
 
-	private String ACCOUNT_SEARCH = "/account/accountSearch";
-	private String ACCOUNT_EDIT = "/account/accountEdit";
+	private String ACCOUNT_SEARCH = "account/accountSearch";
+	private String ACCOUNT_EDIT = "account/accountEdit";
 
 	@GetMapping("search")
 	public String search(Model model, @AuthenticationPrincipal UserDetailsImpl principal, HttpSession session) {
@@ -77,12 +77,9 @@ public class AccountController extends GlobalVariable {
 			commonService.setTheDropdownInTheModel(model);
 			return ACCOUNT_EDIT;
 		}
+		// [更新] M_USER, M_USER_DETAIL
 		String resultMsg = accountService.updateMyAccount(principal.getUserId(), accountForm);
 
-		// 成功の場合
-		if (StringUtils.equals(RETURN_SUCCESS, resultMsg)) {
-			redirectAttributes.addFlashAttribute(RDIRECT_SUCCESS_MSG_KEY, UPDATE_SUCCESS_MSG);
-		}
 		// 失敗の場合
 		if (StringUtils.equals(RETURN_FAILURE, resultMsg)) {
 			model.addAttribute(FAILURE_MSG_KEY, UPDATE_FAILURE_MSG);
@@ -98,6 +95,10 @@ public class AccountController extends GlobalVariable {
 			commonService.setTheDropdownInTheModel(model);
 			return ACCOUNT_EDIT;
 		}
-		return REDIRECT + ACCOUNT_SEARCH;
+		// 成功の場合
+		if (StringUtils.equals(RETURN_SUCCESS, resultMsg)) {
+			redirectAttributes.addFlashAttribute(RDIRECT_SUCCESS_MSG_KEY, UPDATE_SUCCESS_MSG);
+		}
+		return REDIRECT + "/account/search";
 	}
 }

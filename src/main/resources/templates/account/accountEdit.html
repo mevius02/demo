@@ -330,6 +330,14 @@
             <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-7" />
             <input type="hidden" th:field="*{passwordExpiration}">
           </div>
+          <!-- hidden -->
+          <input type="hidden" th:field="*{userUpdateCnt}">
+          <input type="hidden" th:field="*{enabled}">
+          <input type="hidden" th:field="*{userInsertUserId}">
+          <input type="hidden" th:field="*{userInsertTimestamp}">
+          <input type="hidden" th:field="*{detailUpdateCnt}">
+          <input type="hidden" th:field="*{detailInsertUserId}">
+          <input type="hidden" th:field="*{detailInsertTimestamp}">
           <div class="row my-3">
             <div class="col text-start">
               <a id="backBtn" th:text="#{back}" th:href="@{/account/search}" class="btn btn-secondary" />
