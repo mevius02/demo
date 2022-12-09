@@ -13,7 +13,7 @@ import com.example.demo.model.mybatis.MUserExample;
 
 @Service
 @Transactional
-public class UserService extends GlobalVariable {
+public class MstUserService extends GlobalVariable {
 
     @Autowired
     MUserMapper mUserMapper;

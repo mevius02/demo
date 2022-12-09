@@ -149,8 +149,9 @@
             <!-- エラーメッセージ -->
             <div th:if="${param.error}" class="mb-3">
               <p th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}"
-                th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}" style="color:rgb(255, 0, 0)" />
+                th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}" class="text-danger" />
             </div>
+            <p th:if="${failureMsg != null}" th:text="${failureMsg}" class="text-danger" />
             <!-- ユーザーID -->
             <div class="form-floating">
               <input type="test" class="form-control" id="userId" name="userId" maxlength="100"

@@ -6,7 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.login.UserDetailsImpl;
+import com.example.demo.common.GlobalVariable;
+import com.example.demo.model.UserDetailsImpl;
 
 // ↓ ログ出力で使う
 // import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import com.example.demo.login.UserDetailsImpl;
 // log.info("msg");
 @Controller
 @RequestMapping("/home")
-public class HomeController {
+public class HomeController extends GlobalVariable {
 
 	@GetMapping("")
 	public String getHome(Model model, @AuthenticationPrincipal UserDetailsImpl principal) {

@@ -1,4 +1,4 @@
-package com.example.demo.login;
+package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,18 +6,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.mapper.LoginMapper;
+import com.example.demo.model.UserDetailsImpl;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private LoginMapper loginMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-		User account = userRepository.findByUserId(userId);
-		if (account == null) {
+		UserDetailsImpl principal = loginMapper.selectUser(userId);
+		if (principal == null) {
 			throw new UsernameNotFoundException("Not Found M_USER : user_id=" + userId);
 		}
-		return new UserDetailsImpl(account);
+		return principal;
 	}
 }

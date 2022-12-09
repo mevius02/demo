@@ -1,4 +1,4 @@
-package com.example.demo.login;
+package com.example.demo.model;
 
 import java.util.Collection;
 import java.util.Date;
@@ -7,47 +7,40 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Getter;
+
+/* セッション保持されるログイン情報 */
+@Getter
 public class UserDetailsImpl implements UserDetails {
 
-	private User account;
-
-	public UserDetailsImpl(User account) {
-		this.account = account;
-	}
+	/** ユーザーID */
+	private String userId;
+	/** パスワード */
+	private String password;
+	/** 権限ロールCD */
+	private String roleCd;
+	/** ユーザー名 */
+	private String userNm;
+	/** アカウント有効期限 */
+	private Date accountExpiration;
+	/** パスワード有効期限 */
+	private Date passwordExpiration;
+	/** アカウント有効フラグ */
+	private boolean enabled;
 
 	@Override
 	public String getUsername() {
-		return account.getUserId();
-	}
-
-	public String getUserId() {
-		return account.getUserId();
+		return this.userId;
 	}
 
 	@Override
 	public String getPassword() {
-		return account.getPassword();
+		return this.password;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return AuthorityUtils.createAuthorityList("ROLE_" + this.account.getRoleCd());
-	}
-
-	public String getRoleCd() {
-		return account.getRoleCd();
-	}
-
-	public String getUserNm() {
-		return account.getUserNm();
-	}
-
-	public Date getAccountExpiration() {
-		return account.getAccountExpiration();
-	}
-
-	public Date getPasswordExpiration() {
-		return account.getPasswordExpiration();
+		return AuthorityUtils.createAuthorityList("ROLE_" + this.roleCd);
 	}
 
 	/**
@@ -56,7 +49,7 @@ public class UserDetailsImpl implements UserDetails {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return account.isEnabled();
+		return this.enabled;
 	}
 
 	/**
@@ -65,7 +58,7 @@ public class UserDetailsImpl implements UserDetails {
 	 */
 	@Override
 	public boolean isAccountNonLocked() {
-		return account.isEnabled();
+		return this.enabled;
 	}
 
 	/**
@@ -74,7 +67,7 @@ public class UserDetailsImpl implements UserDetails {
 	 */
 	@Override
 	public boolean isAccountNonExpired() {
-		if (account.getAccountExpiration().after(new Date())) {
+		if (this.accountExpiration.after(new Date())) {
 			return true;
 		} else {
 			return false;
@@ -87,7 +80,7 @@ public class UserDetailsImpl implements UserDetails {
 	 */
 	@Override
 	public boolean isCredentialsNonExpired() {
-		if (account.getPasswordExpiration().after(new Date())) {
+		if (this.passwordExpiration.after(new Date())) {
 			return true;
 		} else {
 			return false;

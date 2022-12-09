@@ -1,0 +1,27 @@
+<li th:fragment="mstSuperAdmin" class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuMst" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false" th:text="#{mst}" />
+  <ul class="dropdown-menu text-white px-2" ria-labelledby="dropdownMenuMst">
+    <li>
+      <a th:href="@{/user/search}" th:text="#{user}" class="dropdown-item nav-link" />
+    </li>
+  </ul>
+</li>
+<li th:fragment="mstSystemAdmin" class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuMst" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false" th:text="#{mst}" />
+  <ul class="dropdown-menu text-white px-2" ria-labelledby="dropdownMenuMst">
+    <li>
+      <a th:href="@{/user/search}" th:text="#{user}" class="dropdown-item nav-link" />
+    </li>
+  </ul>
+</li>
+<li th:fragment="mstUserAdmin" class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuMst" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false" th:text="#{mst}" />
+  <ul class="dropdown-menu text-white px-2" ria-labelledby="dropdownMenuMst">
+    <li>
+      <a th:href="@{/user/search}" th:text="#{user}" class="dropdown-item nav-link" />
+    </li>
+  </ul>
+</li>

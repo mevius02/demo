@@ -1,5 +1,7 @@
 package com.example.demo.enums;
 
+import org.thymeleaf.util.StringUtils;
+
 /**
  * 性別
  */
@@ -20,5 +22,23 @@ public enum Gender {
 
     public String getNm() {
         return this.nm;
+    }
+
+    public static Integer getCd(String nm) {
+        for (Gender gender : Gender.values()) {
+            if (StringUtils.equals(nm, gender.getNm())) {
+                return gender.cd;
+            }
+        }
+        return null;
+    }
+
+    public static String getNm(int cd) {
+        for (Gender gender : Gender.values()) {
+            if (cd == gender.getCd()) {
+                return gender.nm;
+            }
+        }
+        return null;
     }
 }

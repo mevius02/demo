@@ -6,7 +6,7 @@
     SELECT 
       muser.update_cnt AS user_update_cnt
       , muser.user_id
-      , muser.role_cd
+      , turole.role_cd
       , mrole.role_nm
       , muser.user_nm
       , muser.account_expiration
@@ -16,38 +16,41 @@
       , muser.insert_timestamp AS user_insert_timestamp
       , muser.update_user_id AS user_update_user_id
       , muser.update_timestamp AS user_update_timestamp
-      , detail.update_cnt AS detail_update_cnt
-      , detail.last_nm
-      , detail.first_nm
-      , detail.last_nm_kana
-      , detail.first_nm_kana
-      , detail.gender
-      , detail.phone_no
-      , detail.mobile_phone_no
-      , detail.mail_address
-      , detail.post_no
-      , detail.prefecture
-      , detail.address
-      , detail.address_kana
-      , detail.date_of_birth
-      , DATE_PART('YEAR', AGE(detail.date_of_birth)) AS age
-      , detail.blood_type
-      , detail.system_thema_cd
-      , thema.system_thema_nm
-      , detail.insert_user_id AS detail_insert_user_id
-      , detail.insert_timestamp AS detail_insert_timestamp
-      , detail.update_user_id AS detail_update_user_id
-      , detail.update_timestamp AS detail_update_timestamp
+      , mudetail.update_cnt AS detail_update_cnt
+      , mudetail.last_nm
+      , mudetail.first_nm
+      , mudetail.last_nm_kana
+      , mudetail.first_nm_kana
+      , mudetail.gender
+      , mudetail.phone_no
+      , mudetail.mobile_phone_no
+      , mudetail.mail_address
+      , mudetail.post_no
+      , mudetail.prefecture
+      , mudetail.address
+      , mudetail.address_kana
+      , mudetail.date_of_birth
+      , DATE_PART('YEAR', AGE(mudetail.date_of_birth)) AS age
+      , mudetail.blood_type
+      , mudetail.system_thema_cd
+      , msthema.system_thema_nm
+      , mudetail.insert_user_id AS detail_insert_user_id
+      , mudetail.insert_timestamp AS detail_insert_timestamp
+      , mudetail.update_user_id AS detail_update_user_id
+      , mudetail.update_timestamp AS detail_update_timestamp
     FROM 
       public.m_user muser
-      INNER JOIN public.m_user_detail detail ON (
-        muser.user_id = detail.user_id
+      INNER JOIN public.m_user_detail mudetail ON (
+        muser.user_id = mudetail.user_id
+      )
+      INNER JOIN public.t_user_role turole ON (
+        muser.user_id = turole.user_id
       )
       INNER JOIN public.m_role mrole ON (
-        muser.role_cd = mrole.role_cd
+        turole.role_cd = mrole.role_cd
       )
-      INNER JOIN public.m_system_thema thema ON (
-        detail.system_thema_cd = thema.system_thema_cd
+      LEFT JOIN public.m_system_thema msthema ON (
+        mudetail.system_thema_cd = msthema.system_thema_cd
       )
     <where>
       <if test="userId != null">

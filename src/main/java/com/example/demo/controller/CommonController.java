@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
-import com.example.demo.login.UserDetailsImpl;
+import com.example.demo.common.GlobalVariable;
+import com.example.demo.model.UserDetailsImpl;
 import com.example.demo.service.common.CommonService;
 
 // ↓ ログ出力で使う
@@ -18,7 +19,7 @@ import com.example.demo.service.common.CommonService;
 // log.info("msg");
 @Controller
 @RequestMapping("/common")
-public class CommonController {
+public class CommonController extends GlobalVariable {
 
 	@Autowired
 	private CommonService commonService;

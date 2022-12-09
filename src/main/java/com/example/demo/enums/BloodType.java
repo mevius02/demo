@@ -1,5 +1,7 @@
 package com.example.demo.enums;
 
+import org.thymeleaf.util.StringUtils;
+
 /**
  * 血液型
  */
@@ -20,5 +22,23 @@ public enum BloodType {
 
     public String getNm() {
         return this.nm;
+    }
+
+    public static Integer getCd(String nm) {
+        for (BloodType bloodType : BloodType.values()) {
+            if (StringUtils.equals(nm, bloodType.getNm())) {
+                return bloodType.cd;
+            }
+        }
+        return null;
+    }
+
+    public static String getNm(int cd) {
+        for (BloodType bloodType : BloodType.values()) {
+            if (cd == bloodType.getCd()) {
+                return bloodType.nm;
+            }
+        }
+        return null;
     }
 }

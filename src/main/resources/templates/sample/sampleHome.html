@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <head th:replace="sample/common/sampleHead :: head(title = 'SAMPLE-HOME', scripts = ~{::script}, links = ~{::link})">
+  <th:block th:replace="sample/common/sampleHead :: head(title = 'サンプルホーム', scripts = ~{::script}, links = ~{::link})">
     <link rel="stylesheet" type="text/css" th:href="@{/css/sample.css}" />
     <script type="text/javascript" th:src="@{/js/sample.js}"></script>
-  </head>
+  </th:block>
 
   <body>
-    <header th:replace="sample/common/sampleHeader :: header-01" />
+    <th:block th:replace="sample/common/sampleHeader :: header-01" />
     <main role="main" class="container-fluid">
       <div class="row justify-content-center">
         <!-- タイトル -->
@@ -81,7 +81,7 @@
         </form>
       </div>
     </main>
-    <footer th:replace="sample/common/sampleFooter :: footer-01" />
+    <th:block th:replace="sample/common/sampleFooter :: footer-01" />
   </body>
 
 </html>

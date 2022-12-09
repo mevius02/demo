@@ -15,18 +15,10 @@
       <!-- メニュー左 -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a th:href="@{/sample}" class="nav-link">
-            サンプル集
-          </a>
+          <a th:href="@{/mst}" th:text="#{mst}" class="nav-link" />
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuMst" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false" th:text="#{mst}" />
-          <ul class="dropdown-menu text-white px-2" ria-labelledby="dropdownMenuMst">
-            <li>
-              <a th:href="@{/user/search}" th:text="#{user}" class="dropdown-item nav-link" />
-            </li>
-          </ul>
+        <li class="nav-item">
+          <a th:href="@{/sample}" th:text="#{sample}" class="nav-link" />
         </li>
       </ul>
       <!-- メニュー右 -->

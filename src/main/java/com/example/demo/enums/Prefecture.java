@@ -1,5 +1,7 @@
 package com.example.demo.enums;
 
+import org.thymeleaf.util.StringUtils;
+
 /**
  * 都道府県
  */
@@ -69,5 +71,23 @@ public enum Prefecture {
 
     public String getNm() {
         return this.nm;
+    }
+
+    public static Integer getCd(String nm) {
+        for (Prefecture prefecture : Prefecture.values()) {
+            if (StringUtils.equals(nm, prefecture.getNm())) {
+                return prefecture.cd;
+            }
+        }
+        return null;
+    }
+
+    public static String getNm(int cd) {
+        for (Prefecture prefecture : Prefecture.values()) {
+            if (cd == prefecture.getCd()) {
+                return prefecture.nm;
+            }
+        }
+        return null;
     }
 }

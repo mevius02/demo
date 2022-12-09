@@ -36,6 +36,12 @@ public class AccountService extends GlobalVariable {
     PasswordEncoder passwordEncoder;
 
     public Account selectMyAccount(String userId) {
+        // [検索]
+        Account account = accountMapper.selectMyAccount(userId);
+        // Enum名セット
+        if (account != null) {
+            // account.setRoleNm(Role.getNm(account.getRoleCd()));
+        }
         return accountMapper.selectMyAccount(userId);
     }
 
@@ -79,10 +85,54 @@ public class AccountService extends GlobalVariable {
         }
     }
 
-    public String updateMyAccount(String loginUsertId, AccountForm accountForm) {
-        // [更新] Mユーザー
+    public String createNewAccount(String loginUsertId, AccountForm accountForm) {
+        // [登録] Mユーザー
         MUser mUser = new MUser();
         Account account = accountForm.getAccount();
+        BeanUtils.copyProperties(account, mUser);
+        mUser.setUpdateCnt(account.getUserUpdateCnt() + 1);
+        if (!StringUtils.isEmpty(account.getNewPassword())) {
+            mUser.setPassword(passwordEncoder.encode(account.getNewPassword()));
+        } else {
+            MUser tmpUser = mUserMapper.selectByPrimaryKey(loginUsertId);
+            if (tmpUser != null) {
+                mUser.setPassword(tmpUser.getPassword());
+            } else {
+                return "パスワードが更新されています";
+            }
+        }
+        mUser.setInsertUserId(account.getUserInsertUserId());
+        mUser.setInsertTimestamp(account.getUserInsertTimestamp());
+        mUser.setUpdateUserId(loginUsertId);
+        mUser.setUpdateTimestamp(new Date());
+        MUserExample mUserExample = new MUserExample();
+        mUserExample.createCriteria()
+                .andUserIdEqualTo(loginUsertId)
+                .andUpdateCntEqualTo(account.getUserUpdateCnt());
+        if (1 != mUserMapper.updateByExample(mUser, mUserExample)) {
+            return RETURN_FAILURE;
+        }
+        // [登録] Mユーザー詳細
+        MUserDetail mUserDetail = new MUserDetail();
+        BeanUtils.copyProperties(account, mUserDetail);
+        mUserDetail.setUpdateCnt(account.getDetailUpdateCnt() + 1);
+        mUserDetail.setInsertUserId(account.getDetailInsertUserId());
+        mUserDetail.setInsertTimestamp(account.getDetailInsertTimestamp());
+        mUserDetail.setUpdateUserId(loginUsertId);
+        mUserDetail.setUpdateTimestamp(new Date());
+        MUserDetailExample mUserDetailExample = new MUserDetailExample();
+        mUserDetailExample.createCriteria()
+                .andUserIdEqualTo(loginUsertId)
+                .andUpdateCntEqualTo(account.getDetailUpdateCnt());
+        if (1 != mUserDetailMapper.updateByExample(mUserDetail, mUserDetailExample)) {
+            return RETURN_FAILURE;
+        }
+        return RETURN_SUCCESS;
+    }
+
+    public String updateMyAccount(String loginUsertId, Account account) {
+        // [更新] Mユーザー
+        MUser mUser = new MUser();
         BeanUtils.copyProperties(account, mUser);
         mUser.setUpdateCnt(account.getUserUpdateCnt() + 1);
         if (!StringUtils.isEmpty(account.getNewPassword())) {

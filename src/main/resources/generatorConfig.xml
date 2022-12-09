@@ -35,7 +35,10 @@
 		<table schema="public" tableName="m_user" />
 		<table schema="public" tableName="m_user_detail" />
 		<table schema="public" tableName="m_role" />
+		<table schema="public" tableName="m_api" />
 		<table schema="public" tableName="m_system_thema" />
+		<table schema="public" tableName="t_user_role" />
+		<table schema="public" tableName="t_api_role" />
 
 	</context>
 </generatorConfiguration>

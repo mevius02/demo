@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <head th:replace="common/head :: head(title = 'MY ACCOUNT INFO [EDIT]', scripts = ~{::script}, links = ~{::link})">
+  <th:block th:replace="common/head :: head(title = 'アカウント情報 [編集]', scripts = ~{::script}, links = ~{::link})">
     <link rel="stylesheet" type="text/css" th:href="@{/css/account.css}" />
     <script type="text/javascript" th:src="@{/js/account.js}"></script>
-  </head>
+  </th:block>
 
   <body>
-    <header th:replace="common/header :: header-01" />
+    <th:block th:replace="common/header :: header-01" />
     <main role="main" class="container-fluid">
       <div class="row justify-content-center">
-        <form method="post" th:action="@{/account/confirm}" class="phone-size needs-validation was-validated h-adr"
+        <form method="post" th:action="@{/account/check-edit}" class="phone-size needs-validation was-validated h-adr"
           th:object="${accountForm.account}" novalidate>
           <!-- タイトル -->
           <h1 th:text=" #{title.account.edit}" class="my-3" />
-          <!-- 失敗メッセージ -->
-          <div th:if="${failureMsg} != null" role="alert" th:utext="${failureMsg}" class="alert alert-danger" />
+          <!-- メッセージ -->
+          <div th:if="${successMsg} != null" role="alert" class="alert alert-success d-flex align-items-center">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+              <use xlink:href="#check-circle-fill" />
+            </svg>
+            <p th:utext="${successMsg}" />
+          </div>
+          <div th:if="${failureMsg} != null" role="alert" class="alert alert-danger d-flex align-items-center">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+              <use xlink:href="#exclamation-triangle-fill" />
+            </svg>
+            <p th:utext="${failureMsg}" />
+          </div>
           <!-- ユーザーID -->
           <div class="row">
             <div class="col-sm-5">
@@ -306,10 +317,10 @@
           <div class="row">
             <div class="col-sm-5 d-flex d-inline">
               <p th:text="#{systemThema}" class="fw-bold me-1" />
-              <div th:replace="common/modal :: tooltipsExampleSystemThema" />
+              <th:block th:replace="common/modal :: tooltipsExampleSystemThema" />
             </div>
             <div class="col-sm-7">
-              <select th:field="*{systemThemaCd}" aria-label="Default select example" class="form-select">
+              <select th:field="*{systemThemaCd}" class="form-select">
                 <option th:each="systemThemaRecord : ${systemThemaList}" th:value="${systemThemaRecord.cd}"
                   th:text="${systemThemaRecord.nm}" th:selected="${systemThemaRecord.cd} == *{systemThemaCd}">
                 </option>
@@ -319,16 +330,24 @@
           <hr class="m-1 text-secondary" size="5">
           <!-- アカウント有効期限 -->
           <div class="row">
-            <p th:text="#{account} + #{expiration}" class="col-sm-5 fw-bold" />
-            <p th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-7" />
-            <input type="hidden" th:field="*{accountExpiration}">
+            <div class="col-sm-5">
+              <p th:text="#{account} + #{expiration}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm')}" />
+              <input type="hidden" th:field="*{accountExpiration}">
+            </div>
           </div>
           <hr class="m-1 text-secondary" size="5">
           <!-- パスワード有効期限 -->
           <div class="row">
-            <p th:text="#{password} + #{expiration}" class="col-sm-5 fw-bold" />
-            <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" class="col-sm-7" />
-            <input type="hidden" th:field="*{passwordExpiration}">
+            <div class="col-sm-5">
+              <p th:text="#{password} + #{expiration}" class="fw-bold" />
+            </div>
+            <div class="col-sm-7">
+              <p th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm')}" />
+              <input type="hidden" th:field="*{passwordExpiration}">
+            </div>
           </div>
           <!-- hidden -->
           <input type="hidden" th:field="*{userUpdateCnt}">
@@ -343,13 +362,13 @@
               <a id="backBtn" th:text="#{back}" th:href="@{/account/search}" class="btn btn-secondary" />
             </div>
             <div class="col text-end">
-              <button type="submit" id="confirmBtn" th:text="#{confirm}" class="btn btn-primary" />
+              <button type="submit" id="checkBtn" th:text="#{check}" class="btn btn-primary" />
             </div>
           </div>
         </form>
       </div>
     </main>
-    <footer th:replace="common/footer :: footer-01" />
+    <th:block th:replace="common/footer :: footer-01" />
   </body>
 
 </html>
