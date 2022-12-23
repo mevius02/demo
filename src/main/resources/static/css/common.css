@@ -4,7 +4,7 @@
 html {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 /* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
 /* body */
@@ -22,8 +22,8 @@ html {
   position: absolute;
   width: 100vw;
   bottom: 0;
-  height: 50px;
-  line-height: 50px;
+  height: 30px;
+  line-height: 30px;
 }
 /* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
 /* a */
@@ -33,6 +33,17 @@ html {
 /* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
 p {
   margin: 0;
+}
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* input */
+/* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.input-sm {
+  font-size: 0.9rem;
+  height: 1.5em;
+  padding-top: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 0;
 }
 /* ■■■■■■■■■■■■■■■■■■■■■■■■■ */
 /* input text */
@@ -116,6 +127,17 @@ p {
 }
 .requwiedMark {
   color: rgb(255, 0, 0);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(108, 117, 125);
+  border-radius: 5px;
 }
 /* ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ */
 /* simple */

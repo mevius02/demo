@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.mst;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import com.example.demo.model.mybatis.MSystemThema;
 
 @Service
 @Transactional
-public class MstSystemThemaService extends GlobalVariable {
+public class SystemThemaService extends GlobalVariable {
 
     @Autowired
     MSystemThemaMapper mSystemThemaMapper;

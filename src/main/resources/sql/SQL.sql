@@ -1,9 +1,8 @@
 DELETE FROM t_role_authority;
-DELETE FROM t_api_role;
+DELETE FROM t_role_api;
 
 -- ■[追加] SEQUENCE
 -- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-CREATE SEQUENCE seq_m_system_thema_id START WITH 1 increment BY 1 maxvalue 99999999; 
 
 -- ■[追加] TABLE
 -- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -70,8 +69,7 @@ CREATE TABLE m_api (
 	, PRIMARY KEY (api_cd)
 ); 
 CREATE TABLE m_system_thema ( 
-	id INTEGER NOT NULL DEFAULT NEXTVAL('seq_m_system_thema_id')
-	, update_cnt INTEGER NOT NULL
+	update_cnt INTEGER NOT NULL
 	, system_thema_cd VARCHAR (50) NOT NULL
 	, system_thema_nm VARCHAR (100) NOT NULL
 	, order_no INTEGER NOT NULL
@@ -93,16 +91,30 @@ CREATE TABLE t_user_role (
 	, update_timestamp TIMESTAMP
 	, PRIMARY KEY (user_id, role_cd)
 ); 
-CREATE TABLE t_api_role ( 
+CREATE TABLE t_role_api ( 
 	update_cnt INTEGER NOT NULL
-	, api_cd VARCHAR (50) NOT NULL
 	, role_cd VARCHAR (50) NOT NULL
+	, api_cd VARCHAR (50) NOT NULL
 	, order_no INTEGER NOT NULL
 	, insert_user_id VARCHAR (100) NOT NULL
 	, insert_timestamp TIMESTAMP NOT NULL
 	, update_user_id VARCHAR (100)
 	, update_timestamp TIMESTAMP
 	, PRIMARY KEY (api_cd, role_cd)
+); 
+CREATE TABLE t_role_mst_menu ( 
+	update_cnt INTEGER NOT NULL
+	, role_cd VARCHAR (50) NOT NULL
+	, mst_table_physical_nm VARCHAR (50) NOT NULL
+	, dropdown_display_nm VARCHAR (100) NOT NULL
+	, mapping_url VARCHAR (50) NOT NULL
+	, order_no INTEGER NOT NULL
+	, enabled BOOLEAN NOT NULL
+	, insert_user_id VARCHAR (100) NOT NULL
+	, insert_timestamp TIMESTAMP NOT NULL
+	, update_user_id VARCHAR (100)
+	, update_timestamp TIMESTAMP
+	, PRIMARY KEY (role_cd, mst_table_physical_nm)
 ); 
 
 -- ■[追加] TABLE COLUMN 論理名
@@ -155,7 +167,6 @@ COMMENT ON COLUMN m_role.update_user_id IS '更新ユーザーID';
 COMMENT ON COLUMN m_role.update_timestamp IS '更新日時'; 
 
 COMMENT ON TABLE m_system_thema IS 'Mシステムテーマ'; 
-COMMENT ON COLUMN m_system_thema.id IS 'ID'; 
 COMMENT ON COLUMN m_system_thema.update_cnt IS '更新回数'; 
 COMMENT ON COLUMN m_system_thema.system_thema_cd IS 'テ－マCD'; 
 COMMENT ON COLUMN m_system_thema.system_thema_nm IS 'テ－マ名'; 
@@ -218,33 +229,28 @@ INSERT INTO m_api VALUES (
     , (0, 'ACCOUNT', 'アカウント情報', 20, TRUE, 'init val', NOW(), NULL, NULL)
     , (0, 'MST-USER', 'ユーザーマスタ', 30, TRUE, 'init val', NOW(), NULL, NULL)
     , (0, 'MST', 'その他マスタ', 30, TRUE, 'init val', NOW(), NULL, NULL);
+INSERT INTO m_system_thema VALUES ( 
+	0, 'simple', 'シンプル', 1, TRUE, 'init val', NOW(), NULL, NULL)
+	, (0, 'dark', 'ダークモード', 2, TRUE, 'init val', NOW(), NULL, NULL)
+	, (0, 'windows', 'Windows風', 3, TRUE, 'init val', NOW(), NULL, NULL)
+	, (0, 'google', 'Google風', 4, TRUE, 'init val', NOW(), NULL, NULL)
+	, (0, 'google-dark', 'Googleダークモード風', 5, TRUE, 'init val', NOW(), NULL, NULL);
 INSERT INTO t_user_role VALUES ( 
 	0, 'runa', 'SUPER-ADMIN', 10, 'init val', NOW(), NULL, NULL);
-INSERT INTO t_api_role VALUES ( 
-    0, 'ACCOUNT', 'SUPER-ADMIN', 1, 'init val', NOW(), NULL, NULL)
-    , (0, 'ACCOUNT', 'SYSTEM-ADMIN', 2, 'init val', NOW(), NULL, NULL)
-    , (0, 'ACCOUNT', 'USER-ADMIN', 3, 'init val', NOW(), NULL, NULL)
-    , (0, 'ACCOUNT', 'CRUD-USER', 4, 'init val', NOW(), NULL, NULL)
-    , (0, 'ACCOUNT', 'CRU-USER', 5, 'init val', NOW(), NULL, NULL)
-    , (0, 'ACCOUNT', 'CR-USER', 6, 'init val', NOW(), NULL, NULL)
-    , (0, 'ACCOUNT', 'R-USER', 7, 'init val', NOW(), NULL, NULL)
-    , (0, 'ACCOUNT', 'GUEST', 8, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'SUPER-ADMIN', 21, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'SYSTEM-ADMIN', 22, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'USER-ADMIN', 23, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'CRUD-USER', 24, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'CRU-USER', 25, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'CR-USER', 26, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'R-USER', 27, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST-USER', 'GUEST', 28, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST', 'SUPER-ADMIN', 41, 'init val', NOW(), NULL, NULL)
-    , (0, 'MST', 'SYSTEM-ADMIN', 42, 'init val', NOW(), NULL, NULL);
-INSERT INTO m_system_thema VALUES ( 
-	NEXTVAL('seq_m_system_thema_id'), 0, 'simple', 'シンプル', 1, TRUE, 'init val', NOW(), NULL, NULL)
-	, (NEXTVAL('seq_m_system_thema_id'), 0, 'dark', 'ダークモード', 2, TRUE, 'init val', NOW(), NULL, NULL)
-	, (NEXTVAL('seq_m_system_thema_id'), 0, 'windows', 'Windows風', 3, TRUE, 'init val', NOW(), NULL, NULL)
-	, (NEXTVAL('seq_m_system_thema_id'), 0, 'google', 'Google風', 4, TRUE, 'init val', NOW(), NULL, NULL)
-	, (NEXTVAL('seq_m_system_thema_id'), 0, 'google-dark', 'Googleダークモード風', 5, TRUE, 'init val', NOW(), NULL, NULL);
+INSERT INTO t_role_api VALUES ( 
+    0, 'SUPER-ADMIN', 'ACCOUNT', 1, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 'MST', 2, 'init val', NOW(), NULL, NULL)
+    , (0, 'SYSTEM-ADMIN', 'ACCOUNT', 21, 'init val', NOW(), NULL, NULL)
+    , (0, 'SYSTEM-ADMIN', 'MST', 22, 'init val', NOW(), NULL, NULL);
+INSERT INTO t_role_mst_menu VALUES ( 
+    0, 'SUPER-ADMIN', 'm_user', 'ユーザ－', '/mst-user', 1, TRUE, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 'm_user_detail', 'ユーザー詳細', '/mst-user-detail', 2, TRUE, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 'm_role', '権限ロール', '/mst-role', 3, TRUE, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 'm_api', 'API URL', '/mst-api', 4, TRUE, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 'm_system_thema', 'システムテーマ', '/mst-system-thema', 5, TRUE, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 't_user_role', 'ユーザー別、権限ロール割当', '/mst-user-role', 6, TRUE, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 't_role_api', '権限ロール別、API割当', '/mst-role-api', 7, TRUE, 'init val', NOW(), NULL, NULL)
+    , (0, 'SUPER-ADMIN', 't_role_mst_menu', '権限ロール別、マスタメニュー割当', '/mst-role-mst-menu', 8, TRUE, 'init val', NOW(), NULL, NULL);
 
 INSERT INTO m_user VALUES (
 	0, 'test1', '$2a$10$zxzZHXK2fiKNBiJQvhe9JezejVZ.em0IVRgxssEn17ptXpuUuzURC', 'test_nm1', '20301231', '20301231', TRUE, 'init val', NOW(), NULL, NULL)
@@ -5347,7 +5353,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test97', '小峰', '眞子', 'コミネ', 'マコ', '女', '0237816935', '09062683588', 'okomine@nuvm.dvz', '9920344', '山形県', '東置賜郡高畠町深沼2-4プレイス深沼119', 'ヒガシオキタマグンタカハタマチフカヌマ2-4プレイスフカヌマ119', '19720911', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test98', '那須', '幸作', 'ナス', 'コウサク', '男', '0742651078', '08029729060', 'kousaku25468@qwsydxyzix.ah', '6390264', '奈良県', '香芝市今泉3-18', 'カシバシイマイズミ3-18', '19740422', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test99', '田所', '治夫', 'タドコロ', 'ハルオ', '男', '0981445265', '09034745893', 'Haruo_Tadokoro@rtavyiqqp.xk', '9050211', '沖縄県', '国頭郡本部町東2-16-14', 'クニガミグンモトブチョウヒガシ2-16-14', '19630524', 'A', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test100', '安藤', '辰也', 'アンドウ', 'タツヤ', '男', '0748394163', '', 'Tatsuya_Andou@hbetj.wy', '5220084', '滋賀県', '彦根市橋向町3-7-11', 'ヒコネシハシムカイチョウ3-7-11', '19371016', 'A', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test100', '安藤', '辰也', 'アンドウ', 'タツヤ', '男', '0748394163', '', 'Tatsuya_Andou@hbetj.wy', '5220084', '滋賀県', '彦根市橋向町3-7-11', 'ヒコネシハシムカイチョウ3-7-11', '19371016', 'A', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test101', '小山田', '京香', 'オヤマダ', 'キョウカ', '女', '0557102693', '08040809805', 'kyouka3849@bogbvfncrj.yv', '4170044', '静岡県', '富士市高嶺町1-19', 'フジシタカネチョウ1-19', '19760224', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test102', '倉橋', '瑞姫', 'クラハシ', 'ミズキ', '女', '0952377337', '', 'mizuki82698@djhjbrmuu.mn', '8540041', '長崎県', '諫早市船越町3-14-8船越町タウン403', 'イサハヤシフナコシマチ3-14-8フナコシマチタウン403', '19541216', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test103', '大城', '結衣', 'オオシロ', 'ユイ', '女', '0744328288', '09030945239', 'yui51503@wmpa.foq', '6308114', '奈良県', '奈良市芝辻町2-11-13', 'ナラシシバツジチョウ2-11-13', '19450418', 'A', 'simple', 'init val', NOW(), NULL, NULL)
@@ -5447,7 +5453,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test197', '小沢', '小雪', 'オザワ', 'コユキ', '女', '0982572096', '09080344987', 'vrjwlg-wpgsqnkoyuki0548@duev.psw', '8870022', '宮崎県', '日南市上平野町1-12-4', 'ニチナンシカミヒラノチョウ1-12-4', '19701204', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test198', '内村', '安男', 'ウチムラ', 'ヤスオ', '男', '0776717241', '', 'yasuo20966@tespuxb.kzs', '9120081', '福井県', '大野市元町2-18-8', 'オオノシモトマチ2-18-8', '20210724', 'AB', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test199', '細野', '夏向', 'ホソノ', 'カナタ', '男', '0282305133', '08067242976', 'kanatahosono@colr.vyc', '3210204', '栃木県', '下都賀郡壬生町緑町4-18-15パレス緑町118', 'シモツガグンミブマチミドリチョウ4-18-15パレスミドリチョウ118', '20080913', 'O', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test200', '高村', '真央', 'タカムラ', 'マオ', '女', '0299896813', '09056657061', 'Mao_Takamura@kxwoqvap.sf', '3112111', '茨城県', '鉾田市上沢1-14', 'ホコタシカミザワ1-14', '19940206', 'O', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test200', '高村', '真央', 'タカムラ', 'マオ', '女', '0299896813', '09056657061', 'Mao_Takamura@kxwoqvap.sf', '3112111', '茨城県', '鉾田市上沢1-14', 'ホコタシカミザワ1-14', '19940206', 'O', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test201', '米山', '和利', 'コメヤマ', 'カズトシ', '男', '0982000519', '', 'Kazutoshi_Komeyama@guqabsmbb.kxoy.vm', '9010416', '沖縄県', '島尻郡八重瀬町宜次4-17-10', 'シマジリグンヤエセチョウギシ4-17-10', '19520909', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test202', '野呂', '愛海', 'ノロ', 'マナミ', '女', '0779492679', '', 'manami717@egkatrh.mq', '6011231', '京都府', '京都市左京区大原尾越町4-1-18', 'キョウトシサキョウクオオハラオゴセチョウ4-1-18', '19550909', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test203', '長尾', '俊博', 'ナガオ', 'トシヒロ', '男', '0849630606', '08073371823', 'Toshihiro_Nagao@ilvsj.jb', '7293513', '広島県', '神石郡神石高原町牧3-1-6', 'ジンセキグンジンセキコウゲンチョウマキ3-1-6', '19590506', 'B', 'simple', 'init val', NOW(), NULL, NULL)
@@ -5547,7 +5553,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test297', '菅', '麻衣子', 'カン', 'マイコ', '女', '096700323', '08086182924', 'Maiko_Kan@tiysfwmt.vmv.ynu', '8670057', '熊本県', '水俣市祇園町2-16テラス祇園町410', 'ミナマタシギオンチョウ2-16テラスギオンチョウ410', '19490914', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test298', '湯川', '鈴音', 'ユカワ', 'スズネ', '女', '0172350323', '08025691948', 'anz==qnukqimgksuzune48178@fojwnb.on', '392405', '青森県', '上北郡東北町上北南1-1-14上北南シーサイド415', 'カミキタグントウホクマチカミキタミナミ1-1-14カミキタミナミシーサイド415', '19840511', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test299', '荻野', '柚花', 'オギノ', 'ユズカ', '女', '0748257378', '08089598867', 'yuzuka353@ngzlctay.pvl', '5201201', '滋賀県', '高島市安曇川町上古賀4-1-6安曇川町上古賀スカイ218', 'タカシマシアドガワチョウカミコガ4-1-6アドガワチョウカミコガスカイ218', '19600103', 'B', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test300', '大滝', '良明', 'オオタキ', 'ヨシアキ', '男', '0238015566', '09045792575', 'yoshiakiootaki@kzgrps.piwx.yx', '9902304', '山形県', '山形市蔵王山田2-1-6', 'ヤマガタシザオウヤマダ2-1-6', '19830609', 'B', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test300', '大滝', '良明', 'オオタキ', 'ヨシアキ', '男', '0238015566', '09045792575', 'yoshiakiootaki@kzgrps.piwx.yx', '9902304', '山形県', '山形市蔵王山田2-1-6', 'ヤマガタシザオウヤマダ2-1-6', '19830609', 'B', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test301', '荻原', '新奈', 'オギワラ', 'ニイナ', '女', '0155900006', '', 'niina650@gorcx.qg', '670017', '北海道', '江別市７条1-8７条シティ117', 'エベツシ7ジョウ1-87ジョウシティ117', '20150504', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test302', '岸', '健二', 'キシ', 'ケンジ', '男', '0851441190', '', 'kenji12413@vkoocwfcte.yt', '6920035', '島根県', '安来市清瀬町2-7-1', 'ヤスギシキヨセチョウ2-7-1', '19481010', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test303', '重田', '勝夫', 'シゲタ', 'カツオ', '男', '0980797076', '', 'katsuo9645@xuexhvn.hit.kvf', '9071542', '沖縄県', '八重山郡竹富町西表2-18-4西表マンション110', 'ヤエヤマグンタケトミチョウイリオモテ2-18-4イリオモテマンション110', '19391021', 'O', 'simple', 'init val', NOW(), NULL, NULL)
@@ -5647,7 +5653,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test397', '塩見', '一華', 'シオミ', 'イチカ', '女', '0283732259', '', 'ichika5461@mhzd.yl', '3200855', '栃木県', '宇都宮市上欠町2-5-14', 'ウツノミヤシカミカケマチ2-5-14', '20171011', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test398', '若林', '恵', 'ワカバヤシ', 'ケイ', '女', '086135353', '', 'keiwakabayashi@stiuqoh.ij', '7092673', '岡山県', '加賀郡吉備中央町尾原4-7-4', 'カガグンキビチュウオウチョウオバラ4-7-4', '19230124', 'AB', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test399', '堀', '希理都', 'ホリ', 'キリト', '男', '0993097043', '09098576481', 'Kirito_Hori@atvdennse.dgb', '8995204', '鹿児島県', '姶良市加治木町日木山2-5-6', 'アイラシカジキチョウヒキヤマ2-5-6', '20120112', 'O', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test400', '今田', '乃愛', 'イマダ', 'ノア', '女', '0738985237', '09071361748', 'noa383@eimk.bbi.ll', '6497111', '和歌山県', '伊都郡かつらぎ町大畑1-6-13', 'イトグンカツラギチョウオオハタ1-6-13', '19690325', 'B', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test400', '今田', '乃愛', 'イマダ', 'ノア', '女', '0738985237', '09071361748', 'noa383@eimk.bbi.ll', '6497111', '和歌山県', '伊都郡かつらぎ町大畑1-6-13', 'イトグンカツラギチョウオオハタ1-6-13', '19690325', 'B', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test401', '藤原', '成康', 'フジワラ', 'ナリヤス', '男', '0293669825', '', 'tfstemgedbnariyasu521@ajhqc.gz', '3140143', '茨城県', '神栖市神栖2-18-3神栖キャッスル202', 'カミスシカミス2-18-3カミスキャッスル202', '19241017', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test402', '山川', '雅江', 'ヤマカワ', 'マサエ', '女', '0853277123', '', 'masae_yamakawa@llatk.qrp', '6993216', '島根県', '浜田市三隅町上古和1-1三隅町上古和シーサイド304', 'ハマダシミスミチョウカミコワ1-1ミスミチョウカミコワシーサイド304', '19280715', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test403', '三村', '遥花', 'ミムラ', 'ハルカ', '女', '0462979892', '08091906367', 'haruka132@wmhbor.wyg.mq', '2470031', '神奈川県', '横浜市栄区桂台北1-9-14', 'ヨコハマシサカエクカツラダイキタ1-9-14', '19730627', 'O', 'simple', 'init val', NOW(), NULL, NULL)
@@ -5747,7 +5753,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test497', '伊東', '志歩', 'イトウ', 'シホ', '女', '024976127', '', 'abgbtzywshiho3519@ocsnkp.wpj', '9630113', '福島県', '郡山市安積町牛庭1-14-10安積町牛庭シーサイド114', 'コオリヤマシアサカマチウシニワ1-14-10アサカマチウシニワシーサイド114', '19330409', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test498', '山上', '沙樹', 'ヤマガミ', 'サキ', '女', '0276437737', '', 'saki92037@xpuhstgey.sym.gq', '3700615', '群馬県', '邑楽郡邑楽町篠塚3-1-7', 'オウラグンオウラマチシノヅカ3-1-7', '19350527', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test499', '宮沢', '柚月', 'ミヤザワ', 'ユヅキ', '女', '0893252138', '09070357197', 'zuyrcwmqdhpvlzwyuzuki055@hqgbyc.lsz', '7910503', '愛媛県', '西条市丹原町今井4-6-15', 'サイジョウシタンバラチョウイマイ4-6-15', '19790904', 'B', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test500', '原', '幸希', 'ハラ', 'コウキ', '男', '0633572502', '', 'kouki418@hwbwnvntvt.nlj', '5420085', '大阪府', '大阪市中央区心斎橋筋4-16-6心斎橋筋ドリーム100', 'オオサカシチュウオウクシンサイバシスジ4-16-6シンサイバシスジドリーム100', '20200526', 'O', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test500', '原', '幸希', 'ハラ', 'コウキ', '男', '0633572502', '', 'kouki418@hwbwnvntvt.nlj', '5420085', '大阪府', '大阪市中央区心斎橋筋4-16-6心斎橋筋ドリーム100', 'オオサカシチュウオウクシンサイバシスジ4-16-6シンサイバシスジドリーム100', '20200526', 'O', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test501', '近藤', '郁子', 'コンドウ', 'イクコ', '女', '0986702436', '', 'ikuko_kondou@dkrjydbuc.lxs', '9070024', '沖縄県', '石垣市新川4-12-4新川スイート316', 'イシガキシアラカワ4-12-4アラカワスイート316', '19250319', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test502', '小嶋', '琴', 'オジマ', 'コト', '女', '046014551', '', 'koto_ojima@mrkrwqs.lqb', '3410023', '埼玉県', '三郷市仁蔵3-17-18仁蔵ハウス315', 'ミサトシニゾウ3-17-18ニゾウハウス315', '20160229', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test503', '堀口', '恵', 'ホリグチ', 'ケイ', '女', '0259584720', '08057527524', 'keihoriguchi@pajxgvy.phk', '9592314', '新潟県', '新発田市赤橋2-20-8', 'シバタシアカイバシ2-20-8', '19651027', 'B', 'simple', 'init val', NOW(), NULL, NULL)
@@ -5847,7 +5853,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test597', '金田', '音葉', 'カナダ', 'オトハ', '女', '0746451059', '09029377126', 'otoha7353@bhsluzxvq.vi', '6320015', '奈良県', '天理市三島町2-8-1', 'テンリシミシマチョウ2-8-1', '19451006', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test598', '雨宮', '勝男', 'アメミヤ', 'カツオ', '男', '0820375204', '', 'katsuoamemiya@cqbqtmpue.ri', '7220034', '広島県', '尾道市十四日元町2-2-11', 'オノミチシトヨヒモトマチ2-2-11', '19460513', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test599', '山岡', '冨士子', 'ヤマオカ', 'フジコ', '女', '0949614415', '', 'fujikoyamaoka@gdjlicj.jf', '8120854', '福岡県', '福岡市博多区東月隈2-17-12', 'フクオカシハカタクヒガシツキグマ2-17-12', '19410127', 'B', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test600', '長坂', '智子', 'ナガサカ', 'トモコ', '女', '0594734896', '08025896172', 'tomoko548@xsnfldxd.iwg', '5100095', '三重県', '四日市市元新町1-20-19', 'ヨッカイチシモトシンマチ1-20-19', '19880306', 'A', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test600', '長坂', '智子', 'ナガサカ', 'トモコ', '女', '0594734896', '08025896172', 'tomoko548@xsnfldxd.iwg', '5100095', '三重県', '四日市市元新町1-20-19', 'ヨッカイチシモトシンマチ1-20-19', '19880306', 'A', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test601', '大野', '菜々', 'オオノ', 'ナナ', '女', '0384351270', '09031767445', 'nana367@dzgjdoe.tkv', '1060045', '東京都', '港区麻布十番2-18-7', 'ミナトクアザブジュウバン2-18-7', '19771116', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test602', '岩下', '悠里', 'イワシタ', 'ユウリ', '女', '0772625841', '', 'yuuri_iwashita@quenbiqos.xjc', '6028417', '京都府', '京都市上京区東社町2-11-12', 'キョウトシカミギョウクヒガシヤシロチョウ2-11-12', '19420410', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test603', '島村', '仁貴', 'シマムラ', 'ヨシキ', '男', '018238635', '', 'kjdk=g=ekmtldryoshiki9759@klepljpktx.bfmr.cg', '192431', '秋田県', '大仙市協和峰吉川4-5キャッスル協和峰吉川412', 'ダイセンシキョウワミネヨシカワ4-5キャッスルキョウワミネヨシカワ412', '20120129', 'O', 'simple', 'init val', NOW(), NULL, NULL)
@@ -5947,7 +5953,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test697', '染谷', '雄二', 'ソメヤ', 'ユウジ', '男', '0834622332', '09065065599', 'yuuji190@nzhknyopn.ung', '7580042', '山口県', '萩市御許町4-17-4コンフォート御許町311', 'ハギシオモトマチ4-17-4コンフォートオモトマチ311', '20040422', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test698', '中井', '桃花', 'ナカイ', 'モモカ', '女', '0220557118', '', 'Momoka_Nakai@znlmxcrtls.uyk', '9880023', '宮城県', '気仙沼市南が丘1-13-13南が丘パレス116', 'ケセンヌマシミナミガオカ1-13-13ミナミガオカパレス116', '19360213', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test699', '遠藤', '清隆', 'エンドウ', 'キヨタカ', '男', '0291997411', '09020911109', 'Kiyotaka_Endou@pwiqmcgay.kz', '3140102', '茨城県', '神栖市東和田2-11東和田シーサイド315', 'カミスシトウワダ2-11トウワダシーサイド315', '19800205', 'O', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test700', '今西', '好男', 'イマニシ', 'ヨシオ', '男', '0958584341', '', 'oimanishi@iytmhhzm.ehg', '8591105', '長崎県', '雲仙市吾妻町田之平名3-9-2', 'ウンゼンシアヅマチョウタノヒラミョウ3-9-2', '19280615', 'A', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test700', '今西', '好男', 'イマニシ', 'ヨシオ', '男', '0958584341', '', 'oimanishi@iytmhhzm.ehg', '8591105', '長崎県', '雲仙市吾妻町田之平名3-9-2', 'ウンゼンシアヅマチョウタノヒラミョウ3-9-2', '19280615', 'A', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test701', '小沢', '百華', 'オザワ', 'モモカ', '女', '0857252921', '', 'Momoka_Ozawa@etik.ep.twa', '6800726', '鳥取県', '八頭郡若桜町淵見1-8-5淵見マンション217', 'ヤズグンワカサチョウフチミ1-8-5フチミマンション217', '19380110', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test702', '沼田', '一郎', 'ヌマタ', 'イチロウ', '男', '0748456707', '08067320495', 'ichirounumata@fexcmdvybi.swm', '5203245', '滋賀県', '湖南市近江台4-6-17プレイス近江台411', 'コナンシオウミダイ4-6-17プレイスオウミダイ411', '19901107', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test703', '原田', '優香', 'ハラダ', 'ユウカ', '女', '0283084780', '', 'aharada@hsuhguepjq.dq', '3280206', '栃木県', '栃木市出流町2-19-11プレイス出流町112', 'トチギシイズルマチ2-19-11プレイスイズルマチ112', '19250115', 'A', 'simple', 'init val', NOW(), NULL, NULL)
@@ -6047,7 +6053,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test797', '須田', '岳樹', 'スダ', 'タケキ', '男', '0879103786', '', 'takeki_suda@hzft.rdx.wpb', '7660203', '香川県', '仲多度郡まんのう町川東3-3川東の杜102', 'ナカタドグンマンノウチョウカワヒガシ3-3カワヒガシノモリ102', '20151019', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test798', '小畑', '恭子', 'オバタ', 'キョウコ', '女', '059232320', '', 'kyouko54816@yvhaiuyh.uun', '5161535', '三重県', '度会郡南伊勢町棚橋竈2-8-8リバーサイド棚橋竈315', 'ワタライグンミナミイセチョウタナハシガマ2-8-8リバーサイドタナハシガマ315', '19300302', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test799', '木下', '江民', 'キノシタ', 'エミ', '女', '0942203908', '', 'ikinoshita@gnqcuzecic.myp.zfc', '8430301', '佐賀県', '嬉野市嬉野町下宿1-18-9嬉野町下宿マンション115', 'ウレシノシウレシノマチシモジュク1-18-9ウレシノマチシモジュクマンション115', '20071206', 'A', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test800', '高山', '智恵理', 'タカヤマ', 'チエリ', '女', '0773713479', '', 'chieri22169@qxzlheqczg.azg', '6128393', '京都府', '京都市伏見区下鳥羽渡瀬町3-13下鳥羽渡瀬町アパート311', 'キョウトシフシミクシモトバワタリセチョウ3-13シモトバワタリセチョウアパート311', '19260225', 'O', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test800', '高山', '智恵理', 'タカヤマ', 'チエリ', '女', '0773713479', '', 'chieri22169@qxzlheqczg.azg', '6128393', '京都府', '京都市伏見区下鳥羽渡瀬町3-13下鳥羽渡瀬町アパート311', 'キョウトシフシミクシモトバワタリセチョウ3-13シモトバワタリセチョウアパート311', '19260225', 'O', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test801', '沢井', '敦司', 'サワイ', 'アツシ', '男', '0765460282', '09099037553', 'bh-gjxdatsushi427@exshew.kb', '9392455', '富山県', '富山市八尾町大玉生2-9', 'トヤマシヤツオマチオオダモウ2-9', '19760223', 'AB', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test802', '高島', '穂高', 'タカシマ', 'ホタカ', '男', '0775214241', '', 'hotaka5799@omocnid.mo', '6068391', '京都府', '京都市左京区聖護院西町3-7-2', 'キョウトシサキョウクショウゴインニシマチ3-7-2', '20170304', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test803', '新谷', '憲治', 'アラヤ', 'ケンジ', '男', '094287766', '08062092492', 'kenji31477@pvdveshu.okd', '8420104', '佐賀県', '神埼郡吉野ヶ里町三津3-5', 'カンザキグンヨシノガリチョウミツ3-5', '19860508', 'O', 'simple', 'init val', NOW(), NULL, NULL)
@@ -6147,7 +6153,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test897', '横田', '敏明', 'ヨコタ', 'トシアキ', '男', '0778579635', '09096586964', 'toshiaki36928@srnuaokv.fzb', '6200055', '京都府', '福知山市篠尾新町3-19-3コート篠尾新町303', 'フクチヤマシサソオシンマチ3-19-3コートサソオシンマチ303', '19740203', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test898', '長嶋', '友香', 'ナガシマ', 'トモカ', '女', '0883392650', '09045594809', 'tomoka_nagashima@reqy.beg', '7830057', '高知県', '南国市八京4-20-13', 'ナンコクシヤキョウ4-20-13', '19450319', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test899', '竹田', '彩加', 'タケダ', 'アヤカ', '女', '0524610335', '09045832553', 'Ayaka_Takeda@apttbohyp.acx.rb', '4540801', '愛知県', '名古屋市中川区百船町1-13-11', 'ナゴヤシナカガワクモモフネチョウ1-13-11', '19880623', 'A', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test900', '河本', '道子', 'カワモト', 'ミチコ', '女', '0869069456', '08063213134', 'michikokawamoto@wdcohmo.tx', '7000954', '岡山県', '岡山市南区米倉2-6-16', 'オカヤマシミナミクヨネグラ2-6-16', '19661224', 'A', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test900', '河本', '道子', 'カワモト', 'ミチコ', '女', '0869069456', '08063213134', 'michikokawamoto@wdcohmo.tx', '7000954', '岡山県', '岡山市南区米倉2-6-16', 'オカヤマシミナミクヨネグラ2-6-16', '19661224', 'A', 'simple', 'init val', NOW(), NULL, NULL);
 	, (0, 'test901', '大貫', '戸敷', 'オオヌキ', 'トシキ', '男', '0778579820', '08043613417', 'toshiki6856@iekeyyif.bu', '9170091', '福井県', '小浜市西津3-2-7', 'オバマシニシヅ3-2-7', '19790622', 'AB', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test902', '松山', '安奈', 'マツヤマ', 'アンナ', '女', '0878526512', '09068443163', 'amatsuyama@ifdeug.sdxe.dne', '7600052', '香川県', '高松市瓦町3-3-8', 'タカマツシカワラマチ3-3-8', '19350404', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test903', '塩崎', '千秋', 'シオザキ', 'チアキ', '女', '0854035672', '09025863507', 'chiaki793@uhvnirg.heu', '6901211', '島根県', '松江市島根町野井2-17-12', 'マツエシシマネチョウノイ2-17-12', '19560415', 'B', 'simple', 'init val', NOW(), NULL, NULL)
@@ -6248,7 +6254,7 @@ INSERT INTO m_user_detail VALUES (
 	, (0, 'test998', '川村', '冬香', 'カワムラ', 'トウカ', '女', '0596285825', '08084621761', 'touka460@xmzljqb.kbr', '5100011', '三重県', '四日市市霞1-11', 'ヨッカイチシカスミ1-11', '20101228', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test999', '大滝', '圭', 'オオタキ', 'ケイ', '男', '0276508724', '', 'rv=ktizcpgyjukei737@zdos.rj', '3730805', '群馬県', '太田市八重笠町2-12-12', 'オオタシヤエガサチョウ2-12-12', '19550407', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1000', '手塚', '公子', 'テヅカ', 'キミコ', '女', '0770089669', '', 'kimiko16158@kifnb.idm', '9103526', '福井県', '福井市二ツ屋町3-2-9', 'フクイシフタツヤチョウ3-2-9', '19380910', 'O', 'simple', 'init val', NOW(), NULL, NULL);
-INSERT INTO m-USER_detail VALUES (
+INSERT INTO m_user_detail VALUES (
 	0, 'test1001', '豊島', '真樹', 'トシマ', 'マキ', '女', '0924415244', '09048289985', 'Maki_Toshima@qjgawzz.qn', '8240214', '福岡県', '京都郡みやこ町犀川鐙畑3-19-12ヴィレッジ犀川鐙畑210', 'ミヤコグンミヤコマチサイガワアブミハタ3-19-12ヴィレッジサイガワアブミハタ210', '19671028', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1002', '内田', '日向子', 'ウチダ', 'ヒナコ', '女', '095999441', '09046835925', 'Hinako_Uchida@hfigtb.ik', '8570044', '長崎県', '佐世保市相生町2-3-4', 'サセボシアイオイチョウ2-3-4', '19571021', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1003', '玉井', '照子', 'タマイ', 'テルコ', '女', '0998754792', '', 'teruko812@fyzlc.bcn', '8900023', '鹿児島県', '鹿児島市永吉2-20-3ドリーム永吉412', 'カゴシマシナガヨシ2-20-3ドリームナガヨシ412', '20160828', 'B', 'simple', 'init val', NOW(), NULL, NULL)
@@ -6348,7 +6354,8 @@ INSERT INTO m-USER_detail VALUES (
 	, (0, 'test1097', '寺田', '莉奈', 'テラダ', 'リナ', '女', '0851467115', '09022878421', 'rina43645@jqjzppuqt.xo.zd', '6990761', '島根県', '出雲市大社町鷺浦4-1-15', 'イズモシタイシャチョウサギウラ4-1-15', '19710826', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1098', '宮城', '棟上', 'ミヤギ', 'トウジョウ', '女', '0821911384', '', 'toujou8081@ksrjbyfmzt.wq', '7314331', '広島県', '安芸郡坂町小屋浦3-14-17小屋浦パーク406', 'アキグンサカチョウコヤウラ3-14-17コヤウラパーク406', '19520710', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1099', '古賀', '翠斗', 'コガ', 'アキト', '男', '0224130636', '', 'vmqmliilovakito54864@xbgnzk.xnw', '9813609', '宮城県', '黒川郡大衡村中央平2-12-15', 'クロカワグンオオヒラムラチュウオウダイラ2-12-15', '20100327', 'B', 'simple', 'init val', NOW(), NULL, NULL)
-	, (0, 'test1100', '笠井', '悟', 'カサイ', 'サトル', '男', '07312891', '', 'satoru160@qmrmq.vqc', '6490431', '和歌山県', '有田市宮原町畑3-11-18ステージ宮原町畑110', 'アリダシミヤハラチョウハタ3-11-18ステージミヤハラチョウハタ110', '20130521', 'O', 'simple', 'init val', NOW(), NULL, NULL)
+	, (0, 'test1100', '笠井', '悟', 'カサイ', 'サトル', '男', '07312891', '', 'satoru160@qmrmq.vqc', '6490431', '和歌山県', '有田市宮原町畑3-11-18ステージ宮原町畑110', 'アリダシミヤハラチョウハタ3-11-18ステージミヤハラチョウハタ110', '20130521', 'O', 'simple', 'init val', NOW(), NULL, NULL);
+INSERT INTO m_user_detail VALUES (
 	, (0, 'test1101', '池内', '松雄', 'イケウチ', 'マツオ', '男', '0744260040', '08029191669', 'matsuo2072@tvlkt.umn', '6360331', '奈良県', '磯城郡田原本町魚町2-2', 'シキグンタワラモトチョウウオマチ2-2', '19510627', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1102', '西島', '真弓', 'ニシジマ', 'マユミ', '女', '0487059517', '09055951289', 'mayuminishijima@hrnbaqid.iea', '2991101', '千葉県', '君津市大鷲新田3-15ロイヤル大鷲新田116', 'キミツシオオワシシンデン3-15ロイヤルオオワシシンデン116', '19660401', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1103', '福地', '静枝', 'フクチ', 'シズエ', '女', '0440923299', '09093966994', 'shizue30263@seqavtwl.che', '2100852', '神奈川県', '川崎市川崎区鋼管通3-4-10鋼管通ゴールデン113', 'カワサキシカワサキクコウカンドオリ3-4-10コウカンドオリゴールデン113', '19440127', 'A', 'simple', 'init val', NOW(), NULL, NULL)
@@ -7249,7 +7256,7 @@ INSERT INTO m-USER_detail VALUES (
 	, (0, 'test1998', '石垣', '清茂', 'イシガキ', 'キヨシ', '男', '0293802727', '09023650374', 'kiyoshi01340@yreu.ysn', '3193543', '茨城県', '久慈郡大子町左貫2-9-2', 'クジグンダイゴマチサヌキ2-9-2', '19770907', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test1999', '三沢', '凪紗', 'ミサワ', 'ナギサ', '女', '0859276232', '', 'nagisa7103@gceavfitnq.bhx', '6893301', '鳥取県', '西伯郡大山町福尾2-6', 'サイハクグンダイセンチョウフクオ2-6', '19490323', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test2000', '細井', '桜花', 'ホソイ', 'オウカ', '女', '0875419904', '08057314545', 'ouka_hosoi@jlkkjzafpj.oinsb.sws', '7630065', '香川県', '丸亀市塩屋町4-14-16', 'マルガメシシオヤチョウ4-14-16', '19751221', 'B', 'simple', 'init val', NOW(), NULL, NULL);
-INSERT INTO m-USER_detail VALUES (
+INSERT INTO m_user_detail VALUES (
 	0, 'test2001', '平田', '紗和', 'ヒラタ', 'サワ', '女', '', '0995893104', 'ahirata@cpxo.ez', '8920818', '鹿児島県', '鹿児島市上本町2-11-2', 'カゴシマシカミホンマチ2-11-2', '19460527', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test2002', '野村', '博一', 'ノムラ', 'ヒロカズ', '男', '0742129101', '09073624318', 'hirokazu11389@bhwcs.wfo', '6308322', '奈良県', '奈良市北京終町1-2', 'ナラシキタキョウバテチョウ1-2', '19821108', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test2003', '川畑', '匠', 'カワバタ', 'タクミ', '男', '0838652852', '08044187074', 'ikawabata@httlzwliw.wi', '7560021', '山口県', '山陽小野田市高畑4-19-11', 'サンヨウオノダシタカハタ4-19-11', '19620311', 'A', 'simple', 'init val', NOW(), NULL, NULL)
@@ -8250,7 +8257,7 @@ INSERT INTO m-USER_detail VALUES (
 	, (0, 'test2998', '松原', '碧生', 'マツバラ', 'アオ', '男', '0235948871', '08023443368', 'aomatsubara@sbsvt.rv', '9920091', '山形県', '米沢市六郷町桐原3-5-1コンフォート六郷町桐原113', 'ヨネザワシロクゴウマチキリバラ3-5-1コンフォートロクゴウマチキリバラ113', '20091228', 'O', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test2999', '西本', '由衣香', 'ニシモト', 'ユイカ', '女', '076781910', '', 'zhjcrzlft=tyuika95973@pffwoc.qey', '9350269', '富山県', '氷見市床鍋4-10-13', 'ヒミシトコナベ4-10-13', '20181123', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test3000', '遠藤', '貴英', 'エンドウ', 'タカヒデ', '男', '0774942964', '08027428827', 'eendou@vuvtjgumv.za', '6200354', '京都府', '福知山市大江町在田4-17-19', 'フクチヤマシオオエチョウアリタ4-17-19', '19480401', 'A', 'simple', 'init val', NOW(), NULL, NULL);
-INSERT INTO m-USER_detail VALUES (
+INSERT INTO m_user_detail VALUES (
 	0, 'test3001', '相田', '正一', 'アイダ', 'ショウイチ', '男', '0739091439', '09032888661', 'skkzjashouichi541@wsjljqh.bj', '6401215', '和歌山県', '海草郡紀美野町鎌滝4-16-12リバーサイド鎌滝113', 'カイソウグンキミノチョウカマタキ4-16-12リバーサイドカマタキ113', '19740508', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test3002', '青柳', '瑠花', 'アオヤギ', 'ルカ', '女', '0885612831', '08048877296', 'ruka59187@elvmtvrbnz.qxd.nfd', '7750203', '徳島県', '海部郡海陽町大里2-9-20', 'カイフグンカイヨウチョウオオザト2-9-20', '19380923', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test3003', '持田', '重吉', 'モチダ', 'ジュウキチ', '男', '095481997', '08069478082', 'imochida@wcfkzwzly.wt', '8513102', '長崎県', '長崎市琴海村松町4-5-5', 'ナガサキシキンカイムラマツマチ4-5-5', '19751031', 'AB', 'simple', 'init val', NOW(), NULL, NULL)
@@ -9251,7 +9258,7 @@ INSERT INTO m-USER_detail VALUES (
 	, (0, 'test3998', '武田', '花乃子', 'タケダ', 'カノコ', '女', '0841596363', '09071367063', 'kanoko331@zslk.xyo', '7372609', '広島県', '呉市安浦町野呂山1-17-8', 'クレシヤスウラチョウノロサン1-17-8', '20081206', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test3999', '本多', '佐吉', 'ホンダ', 'サキチ', '男', '0568898318', '', 'sakichi16468@rjido.op.ppr', '4750945', '愛知県', '半田市池田町2-6池田町コーポ119', 'ハンダシイケダチョウ2-6イケダチョウコーポ119', '19260220', 'B', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test4000', '小玉', '佐太郎', 'コダマ', 'サタロウ', '男', '0740871207', '08030169571', 'Satarou_Kodama@oshqkhe.nr', '5280058', '滋賀県', '甲賀市水口町北泉3-15-7', 'コウカシミナクチチョウキタイズミ3-15-7', '19880303', 'O', 'simple', 'init val', NOW(), NULL, NULL);
-INSERT INTO m-USER_detail VALUES (
+INSERT INTO m_user_detail VALUES (
 	0, 'test4001', '長浜', '文雄', 'ナガハマ', 'フミオ', '男', '0871424758', '', 'Fumio_Nagahama@uhtabbleo.myn', '7650001', '香川県', '善通寺市仙遊町1-13-1', 'ゼンツウジシセンユウチョウ1-13-1', '19430310', 'A', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test4002', '市村', '早百合', 'イチムラ', 'サユリ', '女', '0797370044', '08021632553', 'sayuri648@uqrrjj.psa', '6711234', '兵庫県', '姫路市網干区新在家4-7-12ゴールデン網干区新在家217', 'ヒメジシアボシクシンザイケ4-7-12ゴールデンアボシクシンザイケ217', '19821009', 'AB', 'simple', 'init val', NOW(), NULL, NULL)
 	, (0, 'test4003', '小笠原', '桂子', 'オガサワラ', 'ケイコ', '女', '0278354069', '', 'keiko924@rdefi.umofm.eod', '3771311', '群馬県', '吾妻郡中之条町赤岩4-3-19赤岩ロイヤル208', 'アガツマグンナカノジョウマチアカイワ4-3-19アカイワロイヤル208', '19520302', 'AB', 'simple', 'init val', NOW(), NULL, NULL)
@@ -10277,9 +10284,9 @@ DROP TABLE m_role;
 DROP TABLE m_api; 
 DROP TABLE m_system_thema; 
 DROP TABLE t_user_role; 
-DROP TABLE t_api_role; 
+DROP TABLE t_role_api; 
+DROP TABLE t_role_mst_menu; 
 
 -- ■[削除] SEQUENCE
 -- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-DROP SEQUENCE seq_m_system_thema_id; 
 

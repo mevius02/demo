@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <th:block th:replace="common/head :: head(title = 'マスタホーム', scripts = ~{::script}, links = ~{::link})">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mst/home.css}" />
+    <script type="text/javascript" th:src="@{/js/mst/home.js}"></script>
+  </th:block>
+
+  <body>
+    <th:block th:replace="common/header :: header-01" />
+    <main role="main" class="container-fluid">
+      <div class="row">
+        <div class="col d-flex d-inline align-items-center">
+          <!-- タイトル -->
+          <h1 th:text="#{title.mst.en} + '：'" class="my-3" />
+          <!-- マスタタイトルドロプダウン -->
+          <select th:fragment="mstTitleDropdown" id="selectMstTitle" name="selectMstTitle" class="form-select fw-bold">
+            <option />
+            <option th:each="mstMenuRecord : ${mstMenuList}" th:text="${mstMenuRecord.nm}"
+              th:value="${mstMenuRecord.cd}" th:selected="${selectMstTitle} == ${mstMenuRecord.cd}" class="fw-bold">
+            </option>
+          </select>
+        </div>
+      </div>
+    </main>
+    <th:block th:replace="common/footer :: footer-01" />
+  </body>
+
+</html>

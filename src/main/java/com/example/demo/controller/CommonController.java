@@ -24,7 +24,7 @@ public class CommonController extends GlobalVariable {
 	@Autowired
 	private CommonService commonService;
 
-	@PostMapping("getSystemThema")
+	@PostMapping("get-system-thema")
 	@ResponseBody
 	public String getSystemThema(Model model, @AuthenticationPrincipal UserDetailsImpl principal) {
 		if (StringUtils.isEmpty(principal.getUserId())) {
