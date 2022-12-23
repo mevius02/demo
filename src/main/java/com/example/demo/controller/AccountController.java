@@ -20,8 +20,8 @@ import com.example.demo.form.AccountForm;
 import com.example.demo.model.Account;
 import com.example.demo.model.UserDetailsImpl;
 import com.example.demo.service.AccountService;
-import com.example.demo.service.MstSystemThemaService;
 import com.example.demo.service.common.CommonService;
+import com.example.demo.service.mst.SystemThemaService;
 
 // ↓ ログ出力で使う
 // import lombok.extern.slf4j.Slf4j;
@@ -36,11 +36,11 @@ public class AccountController extends GlobalVariable {
 	@Autowired
 	private AccountService accountService;
 	@Autowired
-	private MstSystemThemaService systemThemaService;
+	private SystemThemaService systemThemaService;
 
-	private String ACCOUNT_SEARCH = "account/accountSearch";
-	private String ACCOUNT_EDIT = "account/accountEdit";
-	private String ACCOUNT_CHECK_EDIT = "account/accountCheckEdit";
+	private String ACCOUNT_SEARCH = "account/search";
+	private String ACCOUNT_EDIT = "account/edit";
+	private String ACCOUNT_CHECK_EDIT = "account/checkEdit";
 	private String REDIRECT_ACCOUNT_SEARCH = REDIRECT + "/account/search";
 
 	@GetMapping("search")
@@ -62,7 +62,7 @@ public class AccountController extends GlobalVariable {
 
 	@GetMapping("edit")
 	public String edit(Model model, @AuthenticationPrincipal UserDetailsImpl principal, HttpSession session) {
-		commonService.setDropdownInModel(model);
+		commonService.setDropdownInModel(model, principal.getRoleCd());
 		AccountForm accountForm = new AccountForm();
 		// 確認画面から戻った場合、引継ぎセット
 		Account inputContents = (Account) session.getAttribute(KEEP_INPUT_CONTENTS_KEY);
@@ -79,7 +79,7 @@ public class AccountController extends GlobalVariable {
 	public String checkEdit(Model model, @AuthenticationPrincipal UserDetailsImpl principal,
 			HttpSession session,
 			@Validated @ModelAttribute AccountForm accountForm, BindingResult result) {
-		commonService.setDropdownInModel(model);
+		commonService.setDropdownInModel(model, principal.getRoleCd());
 		// 追加入力エラーチェック
 		accountService.formErrorCheckMyAccount(principal.getUserId(), accountForm, result);
 		// 入力エラー有の場合
@@ -101,7 +101,7 @@ public class AccountController extends GlobalVariable {
 			HttpSession session,
 			@Validated @ModelAttribute AccountForm accountForm, BindingResult result,
 			RedirectAttributes redirectAttributes) {
-		commonService.setDropdownInModel(model);
+		commonService.setDropdownInModel(model, principal.getRoleCd());
 		// [更新] M_USER, M_USER_DETAIL
 		String resultMsg = accountService.updateMyAccount(principal.getUserId(),
 				(Account) session.getAttribute(KEEP_INPUT_CONTENTS_KEY));

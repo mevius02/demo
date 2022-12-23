@@ -12,7 +12,7 @@ $(function () {
         month +
         "/" +
         today.getDate() +
-        "(" +
+        " (" +
         $weekday[today.getDay()] +
         ") " +
         today.getHours() +
@@ -211,10 +211,9 @@ $(function () {
 $(document).ready(function () {
   $.ajax({
     type: "POST",
-    url: "/common/getSystemThema",
+    url: "/common/get-system-thema",
     dataType: "text",
     success: function (data) {
-      $("body").removeClass();
       $("body").addClass(data);
     },
     error: function (jqXHR, textStatus, errorThrown) {

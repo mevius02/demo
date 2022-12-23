@@ -33,7 +33,8 @@ public class CommonService extends GlobalVariable {
         return "simple";
     }
 
-    public void setDropdownInModel(Model model) {
+    public void setDropdownInModel(Model model, String roleCd) {
+        model.addAttribute("mstMenuList", dropdownService.getRoleMstMenuList(roleCd));
         model.addAttribute("systemThemaList", dropdownService.getSystemThemaList());
     }
 

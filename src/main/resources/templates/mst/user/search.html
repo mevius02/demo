@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <head th:replace="common/head :: head(title = 'MST USER', scripts = ~{::script}, links = ~{::link})">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mst/user.css}" />
+    <script type="text/javascript" th:src="@{/js/mst/user.js}"></script>
+  </head>
+
+  <body>
+    <!-- overflow-auto -->
+    <th:block th:replace="common/header :: header-no-sticky" />
+    <main role="main" class="container-fluid">
+      <div class="row justify-content-center">
+        <!-- タイトル -->
+        <h1 th:text="#{title.mst.user.search}" class="col-12 my-3" />
+        <!-- 検索条件 -->
+        <th:block th:replace="mst/user/searchCondition :: searchCondition" />
+        <!-- 明細 -->
+        <div class="overflow-auto p-0" style="height:50vh;">
+          <table class="table table-sm table-responsive table-striped table-hover text-nowrap mb-0">
+            <thead class="sticky-top">
+              <tr>
+                <th th:each="thUserData : ${session.thUserList}" th:text="${thUserData}" />
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="tdUserData,iterStat  : ${tdUserList}" th:object="${tdUserData}">
+                <td th:text="${iterStat.count}" class="text-center" />
+                <td th:text="*{userId}" />
+                <td th:text="*{userNm}" />
+                <td th:text="*{#dates.format(accountExpiration, 'yyyy/MM/dd HH:mm:ss')}" />
+                <td th:text="*{#dates.format(passwordExpiration, 'yyyy/MM/dd HH:mm:ss')}" />
+                <td th:if="*{enabled == true}" th:text="${T(com.example.demo.enums.EnabledFlg).Enabled.getNm()}"
+                  class="text-center" />
+                <td th:if="*{enabled == false}" th:text="${T(com.example.demo.enums.EnabledFlg).Disabled.getNm()}"
+                  class="text-center text-danger fw-bold" />
+                <td th:text="*{insertUserId}" />
+                <td th:text="*{#dates.format(insertTimestamp, 'yyyy/MM/dd HH:mm:ss')}" />
+                <td th:text="*{updateUserId}" />
+                <td th:text="*{#dates.format(updateTimestamp, 'yyyy/MM/dd HH:mm:ss')}" />
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+    <th:block th:replace="common/footer :: footer-01" />
+  </body>
+
+</html>

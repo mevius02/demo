@@ -18,7 +18,7 @@ import com.example.demo.model.UserDetailsImpl;
 public class HomeController extends GlobalVariable {
 
 	@GetMapping("")
-	public String getHome(Model model, @AuthenticationPrincipal UserDetailsImpl principal) {
+	public String home(Model model, @AuthenticationPrincipal UserDetailsImpl principal) {
 		return "home";
 	}
 }
